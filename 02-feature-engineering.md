@@ -36,6 +36,18 @@ determined statistically.
 Throughout this lesson we are going to focus on *unsupervised* machine
 learning techniques to forecast power consumption.
 
+## About the code
+
+The code for this and other sections of this lesson is based on time-series
+forecasting examples, tutorials, and other documentation available from 
+the [TensorFlow](https://github.com/tensorflow/docs/blob/master/README.md) 
+project. Per the documentation, materials available from the TensorFlow 
+GitHub site published using an 
+[Apache 2.0](https://github.com/tensorflow/docs/blob/master/LICENSE)
+license.
+
+> Google Inc. (2023) *TensorFlow Documentation.* Retrieved from [https://github.com/tensorflow/docs/blob/master/README.md](https://github.com/tensorflow/docs/blob/master/README.md).
+
 ## Features
 
 The data we used in a separate lesson on modeling time-series forecasts, and
