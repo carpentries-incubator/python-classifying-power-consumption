@@ -533,14 +533,14 @@ of batches evaluated.
 
 The other properties call the ```make_dataset()``` function on the training,
 validation, and test data that are exposed to the ```WindowGenerator``` 
-as arguments of the ```_init__()``` function.
+as arguments of the ```__init__()``` function.
 
 Finally, the ```make_dataset()``` function splits the entire training, 
 validation, and test dataframes into batches of data windows with the number
 of input and label timesteps defined when the data window was instantiated. Each
 batch consists of up to 32 slices of the source dataframe, with the starting index
 position of each slice progressing (or sliding) by one timestep from the
-starting index position of the previous slice. 
+ending index position of the previous slice. 
 
 When the code above was executed, the properties were added to the
 ```WindowGenerator``` class. As a result, the ```train()```, ```val()``` and
