@@ -61,6 +61,7 @@ contact: 'team@carpentries.org'
 episodes: 
 - 01-introduction.md
 - 02-feature-engineering.md
+- 03-data-windows.md
 
 # Information for Learners
 learners: 
