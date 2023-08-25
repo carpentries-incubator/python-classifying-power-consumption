@@ -227,7 +227,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Feature Engineering</h1>
-        <p> Last updated on 2023-08-23 | 
+        <p> Last updated on 2023-08-25 | 
         
         <a href="https://github.com/carpentries-incubator/python-classifying-power-consumption/edit/main/episodes/02-feature-engineering.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -335,7 +335,7 @@ libraries to pre-process our daa.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fp <span class="op">=</span> <span class="st">"../../data/ladpu_smart_meter_data_01.csv"</span></span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fp <span class="op">=</span> <span class="st">"../../data/ladpu_smart_meter_data_07.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(fp)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df.set_index(pd.to_datetime(df[<span class="st">"INTERVAL_TIME"</span>]), inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df.sort_index(inplace<span class="op">=</span><span class="va">True</span>)</span>
@@ -395,14 +395,13 @@ Data columns (total 1 columns):
 dtypes: float64(1)
 memory usage: 410.6 KB
 None
-
                      INTERVAL_READ
 INTERVAL_TIME                     
-2017-01-01 00:00:00         0.3192
-2017-01-01 01:00:00         0.3294
-2017-01-01 02:00:00         0.3414
-2017-01-01 03:00:00         0.3150
-2017-01-01 04:00:00         0.3288</code></pre>
+2017-01-01 00:00:00         1.4910
+2017-01-01 01:00:00         0.3726
+2017-01-01 02:00:00         0.3528
+2017-01-01 03:00:00         0.3858
+2017-01-01 04:00:00         0.4278</code></pre>
 </div>
 <p>A plot of the entire dataset is somewhat noisy, though seasonal
 trends are apparent.</p>
@@ -435,11 +434,11 @@ want to tabulate descriptive statistics for multiple variables.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>                 count      mean       std  min    25%     50%     75%     max
-INTERVAL_READ  26280.0  0.510161  0.651826  0.0  0.153  0.1998  0.5262  6.2604</code></pre>
+<pre class="output" tabindex="0"><code>                 count      mean       std  min     25%     50%    75%     max
+INTERVAL_READ  26280.0  0.624122  0.405971  0.0  0.3714  0.4818  0.756  4.3872</code></pre>
 </div>
-<p>The <code>max</code> value of 6.2604 may seem like an outlier,
-considering that 75% of INTERVAL_READ values are 0.5262 or less.
+<p>The <code>max</code> value of 4.3872 may seem like an outlier,
+considering that 75% of INTERVAL_READ values are 0.4818 or less.
 However, a look back up to our first plot indicates peak power
 consumption over a relatively short time period in the middle of the
 year. For now we will accept this max value as reasonable.</p>
@@ -479,23 +478,21 @@ month: Int64Index([1, 1, 1, 1, 1], dtype='int64', name='INTERVAL_TIME')
 
 year Int64Index([2017, 2017, 2017, 2017, 2017], dtype='int64', name='INTERVAL_TIME')</code></pre>
 </div>
-<p>We can add these attributes as new features.</p>
+<p>We can add these attributes as new features. Out of the attributes
+shown above, we are only going to add a few numeric types and a full
+date string.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'hour'</span>] <span class="op">=</span> hourly_readings.index.hour</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'day_month'</span>] <span class="op">=</span> hourly_readings.index.day</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'day_week'</span>] <span class="op">=</span> hourly_readings.index.day_of_week</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'day_year'</span>] <span class="op">=</span> hourly_readings.index.day_of_year</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'day_name'</span>] <span class="op">=</span> hourly_readings.index.day_name()</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'week'</span>] <span class="op">=</span> hourly_readings.index.week</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'month'</span>] <span class="op">=</span> hourly_readings.index.month</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'year'</span>] <span class="op">=</span> hourly_readings.index.year</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'date'</span>] <span class="op">=</span> hourly_readings.index.to_series().<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">"</span>))</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hourly_readings.head())</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hourly_readings.tail())</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'hour'</span>] <span class="op">=</span> hourly_readings.index.hour</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'day_month'</span>] <span class="op">=</span> hourly_readings.index.day</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'day_week'</span>] <span class="op">=</span> hourly_readings.index.day_of_week</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'month'</span>] <span class="op">=</span> hourly_readings.index.month</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>hourly_readings[<span class="st">'date'</span>] <span class="op">=</span> hourly_readings.index.to_series().<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.strftime(<span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">"</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hourly_readings.info())</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hourly_readings.head())</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hourly_readings.tail())</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -503,40 +500,38 @@ year Int64Index([2017, 2017, 2017, 2017, 2017], dtype='int64', name='INTERVAL_TI
 <pre class="output" tabindex="0"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 DatetimeIndex: 26280 entries, 2017-01-01 00:00:00 to 2019-12-31 23:00:00
 Freq: H
-Data columns (total 10 columns):
+Data columns (total 6 columns):
  #   Column         Non-Null Count  Dtype  
 ---  ------         --------------  -----  
  0   INTERVAL_READ  26280 non-null  float64
  1   hour           26280 non-null  int64  
  2   day_month      26280 non-null  int64  
  3   day_week       26280 non-null  int64  
- 4   day_year       26280 non-null  int64  
- 5   day_name       26280 non-null  object 
- 6   week           26280 non-null  int64  
- 7   month          26280 non-null  int64  
- 8   year           26280 non-null  int64  
- 9   date           26280 non-null  object 
-dtypes: float64(1), int64(7), object(2)
-memory usage: 2.2+ MB
+ 4   month          26280 non-null  int64  
+ 5   date           26280 non-null  object 
+dtypes: float64(1), int64(4), object(1)
+memory usage: 1.4+ MB
 None
 
-                     INTERVAL_READ  hour  day_month  ...  month  year        date
-INTERVAL_TIME                                        ...                         
-2017-01-01 00:00:00         0.3192     0          1  ...      1  2017  2017-01-01
-2017-01-01 01:00:00         0.3294     1          1  ...      1  2017  2017-01-01
-2017-01-01 02:00:00         0.3414     2          1  ...      1  2017  2017-01-01
-2017-01-01 03:00:00         0.3150     3          1  ...      1  2017  2017-01-01
-2017-01-01 04:00:00         0.3288     4          1  ...      1  2017  2017-01-01
+                     INTERVAL_READ  hour  ...  month        date
+INTERVAL_TIME                             ...                   
+2017-01-01 00:00:00         1.4910     0  ...      1  2017-01-01
+2017-01-01 01:00:00         0.3726     1  ...      1  2017-01-01
+2017-01-01 02:00:00         0.3528     2  ...      1  2017-01-01
+2017-01-01 03:00:00         0.3858     3  ...      1  2017-01-01
+2017-01-01 04:00:00         0.4278     4  ...      1  2017-01-01
 
+[5 rows x 6 columns]
 
-[5 rows x 10 columns]
-                     INTERVAL_READ  hour  day_month  ...  month  year        date
-INTERVAL_TIME                                        ...                         
-2019-12-31 19:00:00         5.5914    19         31  ...     12  2019  2019-12-31
-2019-12-31 20:00:00         2.4234    20         31  ...     12  2019  2019-12-31
-2019-12-31 21:00:00         4.3848    21         31  ...     12  2019  2019-12-31
-2019-12-31 22:00:00         2.0952    22         31  ...     12  2019  2019-12-31
-2019-12-31 23:00:00         1.7424    23         31  ...     12  2019  2019-12-31</code></pre>
+                     INTERVAL_READ  hour  ...  month        date
+INTERVAL_TIME                             ...                   
+2019-12-31 19:00:00         0.7326    19  ...     12  2019-12-31
+2019-12-31 20:00:00         0.7938    20  ...     12  2019-12-31
+2019-12-31 21:00:00         0.7878    21  ...     12  2019-12-31
+2019-12-31 22:00:00         0.7716    22  ...     12  2019-12-31
+2019-12-31 23:00:00         0.4986    23  ...     12  2019-12-31
+
+[5 rows x 6 columns]</code></pre>
 </div>
 <p>Another feature than can influence power consumption is whether a
 given day is a business day, a weekend, or a holiday. For our purposes,
@@ -567,22 +562,18 @@ regions and locales.</p>
 <pre class="output" tabindex="0"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 DatetimeIndex: 26280 entries, 2017-01-01 00:00:00 to 2019-12-31 23:00:00
 Freq: H
-Data columns (total 11 columns):
+Data columns (total 7 columns):
  #   Column         Non-Null Count  Dtype  
 ---  ------         --------------  -----  
  0   INTERVAL_READ  26280 non-null  float64
  1   hour           26280 non-null  int64  
  2   day_month      26280 non-null  int64  
  3   day_week       26280 non-null  int64  
- 4   day_year       26280 non-null  int64  
- 5   day_name       26280 non-null  object 
- 6   week           26280 non-null  int64  
- 7   month          26280 non-null  int64  
- 8   year           26280 non-null  int64  
- 9   date           26280 non-null  object 
- 10  business_day   26280 non-null  bool   
-dtypes: bool(1), float64(1), int64(7), object(2)
-memory usage: 2.2+ MB
+ 4   month          26280 non-null  int64  
+ 5   date           26280 non-null  object 
+ 6   business_day   26280 non-null  bool   
+dtypes: bool(1), float64(1), int64(4), object(1)
+memory usage: 1.4+ MB
 None</code></pre>
 </div>
 </section><section id="sine-and-cosine-transformation"><h2 class="section-heading">Sine and cosine transformation<a class="anchor" aria-label="anchor" href="#sine-and-cosine-transformation"></a>
@@ -645,26 +636,20 @@ elements.</p>
 <pre class="output" tabindex="0"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 DatetimeIndex: 26280 entries, 2017-01-01 00:00:00 to 2019-12-31 23:00:00
 Freq: H
-Data columns (total 15 columns):
+Data columns (total 9 columns):
  #   Column         Non-Null Count  Dtype  
 ---  ------         --------------  -----  
  0   INTERVAL_READ  26280 non-null  float64
  1   hour           26280 non-null  int64  
  2   day_month      26280 non-null  int64  
  3   day_week       26280 non-null  int64  
- 4   day_year       26280 non-null  int64  
- 5   day_name       26280 non-null  object 
- 6   week           26280 non-null  int64  
- 7   month          26280 non-null  int64  
- 8   year           26280 non-null  int64  
- 9   date           26280 non-null  object 
- 10  business_day   26280 non-null  bool   
- 11  day_sin        26280 non-null  float64
- 12  day_cos        26280 non-null  float64
- 13  year_sin       26280 non-null  float64
- 14  year_cos       26280 non-null  float64
-dtypes: bool(1), float64(5), int64(7), object(2)
-memory usage: 3.0+ MB
+ 4   month          26280 non-null  int64  
+ 5   date           26280 non-null  object 
+ 6   business_day   26280 non-null  bool   
+ 7   day_sin        26280 non-null  float64
+ 8   day_cos        26280 non-null  float64
+dtypes: bool(1), float64(3), int64(4), object(1)
+memory usage: 1.8+ MB
 None</code></pre>
 </div>
 <p>If we now plot the transformed values for January 1-2, 2017, we can
@@ -768,9 +753,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/python-classifying-power-consumption/instructor/02-feature-engineering.html",
   "identifier": "https://carpentries-incubator.github.io/python-classifying-power-consumption/instructor/02-feature-engineering.html",
-  "dateCreated": "2023-08-23",
-  "dateModified": "2023-08-23",
-  "datePublished": "2023-08-23"
+  "dateCreated": "2023-08-25",
+  "dateModified": "2023-08-25",
+  "datePublished": "2023-08-25"
 }
 
   </script><script>
