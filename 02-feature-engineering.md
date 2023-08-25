@@ -96,7 +96,7 @@ import pandas as pd
 Next we read the data, and set and sort the datetime index.
 
 ```python
-fp = "../../data/ladpu_smart_meter_data_01.csv"
+fp = "../../data/ladpu_smart_meter_data_07.csv"
 df = pd.read_csv(fp)
 df.set_index(pd.to_datetime(df["INTERVAL_TIME"]), inplace=True)
 df.sort_index(inplace=True)
@@ -154,14 +154,13 @@ Data columns (total 1 columns):
 dtypes: float64(1)
 memory usage: 410.6 KB
 None
-
                      INTERVAL_READ
 INTERVAL_TIME                     
-2017-01-01 00:00:00         0.3192
-2017-01-01 01:00:00         0.3294
-2017-01-01 02:00:00         0.3414
-2017-01-01 03:00:00         0.3150
-2017-01-01 04:00:00         0.3288
+2017-01-01 00:00:00         1.4910
+2017-01-01 01:00:00         0.3726
+2017-01-01 02:00:00         0.3528
+2017-01-01 03:00:00         0.3858
+2017-01-01 04:00:00         0.4278
 ```
 
 A plot of the entire dataset is somewhat noisy, though seasonal trends are
@@ -195,12 +194,12 @@ print(hourly_readings.describe().transpose())
 ```
 
 ```output
-                 count      mean       std  min    25%     50%     75%     max
-INTERVAL_READ  26280.0  0.510161  0.651826  0.0  0.153  0.1998  0.5262  6.2604
+                 count      mean       std  min     25%     50%    75%     max
+INTERVAL_READ  26280.0  0.624122  0.405971  0.0  0.3714  0.4818  0.756  4.3872
 ```
 
-The ```max``` value of 6.2604 may seem like an outlier, considering that 75%
-of INTERVAL_READ values are 0.5262 or less. However, a look back up to our first
+The ```max``` value of 4.3872 may seem like an outlier, considering that 75%
+of INTERVAL_READ values are 0.4818 or less. However, a look back up to our first
 plot indicates peak power consumption over a relatively short time period in
 the middle of the year. For now we will accept this max value as reasonable.
 
@@ -238,20 +237,17 @@ month: Int64Index([1, 1, 1, 1, 1], dtype='int64', name='INTERVAL_TIME')
 year Int64Index([2017, 2017, 2017, 2017, 2017], dtype='int64', name='INTERVAL_TIME')
 ```
 
-We can add these attributes as new features.
+We can add these attributes as new features. Out of the attributes shown above,
+we are only going to add a few numeric types and a full date string.
 
 ```python
-
 hourly_readings['hour'] = hourly_readings.index.hour
 hourly_readings['day_month'] = hourly_readings.index.day
 hourly_readings['day_week'] = hourly_readings.index.day_of_week
-hourly_readings['day_year'] = hourly_readings.index.day_of_year
-hourly_readings['day_name'] = hourly_readings.index.day_name()
-hourly_readings['week'] = hourly_readings.index.week
 hourly_readings['month'] = hourly_readings.index.month
-hourly_readings['year'] = hourly_readings.index.year
 hourly_readings['date'] = hourly_readings.index.to_series().apply(lambda x: x.strftime("%Y-%m-%d"))
 
+print(hourly_readings.info())
 print(hourly_readings.head())
 print(hourly_readings.tail())
 ```
@@ -260,40 +256,38 @@ print(hourly_readings.tail())
 <class 'pandas.core.frame.DataFrame'>
 DatetimeIndex: 26280 entries, 2017-01-01 00:00:00 to 2019-12-31 23:00:00
 Freq: H
-Data columns (total 10 columns):
+Data columns (total 6 columns):
  #   Column         Non-Null Count  Dtype  
 ---  ------         --------------  -----  
  0   INTERVAL_READ  26280 non-null  float64
  1   hour           26280 non-null  int64  
  2   day_month      26280 non-null  int64  
  3   day_week       26280 non-null  int64  
- 4   day_year       26280 non-null  int64  
- 5   day_name       26280 non-null  object 
- 6   week           26280 non-null  int64  
- 7   month          26280 non-null  int64  
- 8   year           26280 non-null  int64  
- 9   date           26280 non-null  object 
-dtypes: float64(1), int64(7), object(2)
-memory usage: 2.2+ MB
+ 4   month          26280 non-null  int64  
+ 5   date           26280 non-null  object 
+dtypes: float64(1), int64(4), object(1)
+memory usage: 1.4+ MB
 None
 
-                     INTERVAL_READ  hour  day_month  ...  month  year        date
-INTERVAL_TIME                                        ...                         
-2017-01-01 00:00:00         0.3192     0          1  ...      1  2017  2017-01-01
-2017-01-01 01:00:00         0.3294     1          1  ...      1  2017  2017-01-01
-2017-01-01 02:00:00         0.3414     2          1  ...      1  2017  2017-01-01
-2017-01-01 03:00:00         0.3150     3          1  ...      1  2017  2017-01-01
-2017-01-01 04:00:00         0.3288     4          1  ...      1  2017  2017-01-01
+                     INTERVAL_READ  hour  ...  month        date
+INTERVAL_TIME                             ...                   
+2017-01-01 00:00:00         1.4910     0  ...      1  2017-01-01
+2017-01-01 01:00:00         0.3726     1  ...      1  2017-01-01
+2017-01-01 02:00:00         0.3528     2  ...      1  2017-01-01
+2017-01-01 03:00:00         0.3858     3  ...      1  2017-01-01
+2017-01-01 04:00:00         0.4278     4  ...      1  2017-01-01
 
+[5 rows x 6 columns]
 
-[5 rows x 10 columns]
-                     INTERVAL_READ  hour  day_month  ...  month  year        date
-INTERVAL_TIME                                        ...                         
-2019-12-31 19:00:00         5.5914    19         31  ...     12  2019  2019-12-31
-2019-12-31 20:00:00         2.4234    20         31  ...     12  2019  2019-12-31
-2019-12-31 21:00:00         4.3848    21         31  ...     12  2019  2019-12-31
-2019-12-31 22:00:00         2.0952    22         31  ...     12  2019  2019-12-31
-2019-12-31 23:00:00         1.7424    23         31  ...     12  2019  2019-12-31
+                     INTERVAL_READ  hour  ...  month        date
+INTERVAL_TIME                             ...                   
+2019-12-31 19:00:00         0.7326    19  ...     12  2019-12-31
+2019-12-31 20:00:00         0.7938    20  ...     12  2019-12-31
+2019-12-31 21:00:00         0.7878    21  ...     12  2019-12-31
+2019-12-31 22:00:00         0.7716    22  ...     12  2019-12-31
+2019-12-31 23:00:00         0.4986    23  ...     12  2019-12-31
+
+[5 rows x 6 columns]
 ```
 
 Another feature than can influence power consumption is whether a given day
@@ -323,22 +317,18 @@ print(hourly_readings.info())
 <class 'pandas.core.frame.DataFrame'>
 DatetimeIndex: 26280 entries, 2017-01-01 00:00:00 to 2019-12-31 23:00:00
 Freq: H
-Data columns (total 11 columns):
+Data columns (total 7 columns):
  #   Column         Non-Null Count  Dtype  
 ---  ------         --------------  -----  
  0   INTERVAL_READ  26280 non-null  float64
  1   hour           26280 non-null  int64  
  2   day_month      26280 non-null  int64  
  3   day_week       26280 non-null  int64  
- 4   day_year       26280 non-null  int64  
- 5   day_name       26280 non-null  object 
- 6   week           26280 non-null  int64  
- 7   month          26280 non-null  int64  
- 8   year           26280 non-null  int64  
- 9   date           26280 non-null  object 
- 10  business_day   26280 non-null  bool   
-dtypes: bool(1), float64(1), int64(7), object(2)
-memory usage: 2.2+ MB
+ 4   month          26280 non-null  int64  
+ 5   date           26280 non-null  object 
+ 6   business_day   26280 non-null  bool   
+dtypes: bool(1), float64(1), int64(4), object(1)
+memory usage: 1.4+ MB
 None
 ```
 
@@ -402,26 +392,20 @@ print(hourly_readings.info())
 <class 'pandas.core.frame.DataFrame'>
 DatetimeIndex: 26280 entries, 2017-01-01 00:00:00 to 2019-12-31 23:00:00
 Freq: H
-Data columns (total 15 columns):
+Data columns (total 9 columns):
  #   Column         Non-Null Count  Dtype  
 ---  ------         --------------  -----  
  0   INTERVAL_READ  26280 non-null  float64
  1   hour           26280 non-null  int64  
  2   day_month      26280 non-null  int64  
  3   day_week       26280 non-null  int64  
- 4   day_year       26280 non-null  int64  
- 5   day_name       26280 non-null  object 
- 6   week           26280 non-null  int64  
- 7   month          26280 non-null  int64  
- 8   year           26280 non-null  int64  
- 9   date           26280 non-null  object 
- 10  business_day   26280 non-null  bool   
- 11  day_sin        26280 non-null  float64
- 12  day_cos        26280 non-null  float64
- 13  year_sin       26280 non-null  float64
- 14  year_cos       26280 non-null  float64
-dtypes: bool(1), float64(5), int64(7), object(2)
-memory usage: 3.0+ MB
+ 4   month          26280 non-null  int64  
+ 5   date           26280 non-null  object 
+ 6   business_day   26280 non-null  bool   
+ 7   day_sin        26280 non-null  float64
+ 8   day_cos        26280 non-null  float64
+dtypes: bool(1), float64(3), int64(4), object(1)
+memory usage: 1.8+ MB
 None
 ```
 
