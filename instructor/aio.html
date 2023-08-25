@@ -330,7 +330,7 @@ reinforce the objectives.</li>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -364,7 +364,7 @@ View”</p>
   Output
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -395,7 +395,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge-2-how-do
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -1518,15 +1518,15 @@ run against the entire dataset. The example batches used for plotting
 may only be a small subset of the total number of batches evaluated.</p>
 <p>The other properties call the <code>make_dataset()</code> function on
 the training, validation, and test data that are exposed to the
-<code>WindowGenerator</code> as arguments of the <code>_init__()</code>
+<code>WindowGenerator</code> as arguments of the <code>__init__()</code>
 function.</p>
 <p>Finally, the <code>make_dataset()</code> function splits the entire
 training, validation, and test dataframes into batches of data windows
 with the number of input and label timesteps defined when the data
 window was instantiated. Each batch consists of up to 32 slices of the
 source dataframe, with the starting index position of each slice
-progressing (or sliding) by one timestep from the starting index
-position of the previous slice.</p>
+progressing (or sliding) by one timestep from the ending index position
+of the previous slice.</p>
 <p>When the code above was executed, the properties were added to the
 <code>WindowGenerator</code> class. As a result, the
 <code>train()</code>, <code>val()</code> and <code>test()</code>
