@@ -75,7 +75,7 @@ difficult to include in our models:
 While some of these features were implicit in the data - for example, power
 consumption during the US summer notably increased - making these features
 explicit in our data can result in more accurate machine learning models, with
-more predictive powe.
+more predictive power.
 
 In this section, we demonstrate a process for extracting these features
 from a datetime index. The dataset output at the end of this section will be
@@ -330,6 +330,28 @@ Data columns (total 7 columns):
 dtypes: bool(1), float64(1), int64(4), object(1)
 memory usage: 1.4+ MB
 None
+```
+
+We want to pass numeric data types to the machine learning processes covered
+in later sections, so we'll convert the boolean (*True* and *False*) values
+for *business_day* to integers (1 for *True* and 0 for *False*).
+
+```python
+hourly_readings = hourly_readings.astype({"business_day": "int"})
+print(hourly_readings.dtypes)
+```
+
+```output
+INTERVAL_READ    float64
+hour               int64
+day_month          int64
+day_week           int64
+month              int64
+date              object
+day_sin          float64
+day_cos          float64
+business_day       int32
+dtype: object
 ```
 
 ## Sine and cosine transformation
