@@ -26,8 +26,8 @@ to adding a validation dataset, a key difference with unsupervised machine
 learning is the definition of *data windows.* 
 
 Returning to our earlier definition of features and labels, a data window
-defines the attributes of a slice or batch of features and labels from the
-test dataset that are the inputs to a machine learning process. These
+defines the attributes of a slice or batch of features and labels from a
+dataset that are the inputs to a machine learning process. These
 attributes specify:
 
 - the number of time steps in the slice
