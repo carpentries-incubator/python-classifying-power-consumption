@@ -85,11 +85,11 @@
   Machine Learning for Timeseries Forecasting with Python
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 55%" class="percentage">
-    55%
+<aside class="col-md-12 lesson-progress"><div style="width: 38%" class="percentage">
+    38%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 55%" aria-valuenow="55" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 38%" aria-valuenow="38" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -184,6 +184,15 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="04-single-step-forecasts.html">4. Single Step Forecasts</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -226,16 +235,16 @@
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/02-feature-engineering.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/04-single-step-forecasts.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
         <a class="chapter-link" href="../instructor/02-feature-engineering.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous: Feature Engineering</a>
-        <a class="chapter-link float-end" href="../instructor/index.html" rel="next">Next... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/04-single-step-forecasts.html" rel="next">Next: Single Step... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Data Windowing and Making Datasets</h1>
-        <p> Last updated on 2023-08-26 | 
+        <p> Last updated on 2023-08-28 | 
         
         <a href="https://github.com/carpentries-incubator/python-classifying-power-consumption/edit/main/episodes/03-data-windows.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -793,8 +802,10 @@ training, validation, and test dataframes into batches of data windows
 with the number of input and label timesteps defined when the data
 window was instantiated. Each batch consists of up to 32 slices of the
 source dataframe, with the starting index position of each slice
-progressing (or sliding) by one timestep from the ending index position
-of the previous slice.</p>
+progressing (or sliding) by one timestep from the starting index
+position of the previous slice. This results in an overlap between
+slices in which the label feature of one slice becomes an input feature
+of another slice.</p>
 <p>When the code above was executed, the properties were added to the
 <code>WindowGenerator</code> class. As a result, the
 <code>train()</code>, <code>val()</code> and <code>test()</code>
@@ -884,12 +895,12 @@ any links that you are not going to use.
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/02-feature-engineering.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/04-single-step-forecasts.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
         <a class="chapter-link" href="../instructor/02-feature-engineering.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous: Feature Engineering</a>
-        <a class="chapter-link float-end" href="../instructor/index.html" rel="next">Next... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/04-single-step-forecasts.html" rel="next">Next: Single Step... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
     </nav></div> <!-- / div.primary-content.col-xs-12 -->
 <!-- END:   inst/pkgdown/templates/content-instructor.html-->
@@ -933,9 +944,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/python-classifying-power-consumption/instructor/03-data-windows.html",
   "identifier": "https://carpentries-incubator.github.io/python-classifying-power-consumption/instructor/03-data-windows.html",
-  "dateCreated": "2023-08-26",
-  "dateModified": "2023-08-26",
-  "datePublished": "2023-08-26"
+  "dateCreated": "2023-08-28",
+  "dateModified": "2023-08-28",
+  "datePublished": "2023-08-28"
 }
 
   </script><script>
