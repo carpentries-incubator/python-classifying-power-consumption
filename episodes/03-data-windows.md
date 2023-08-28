@@ -540,7 +540,9 @@ validation, and test dataframes into batches of data windows with the number
 of input and label timesteps defined when the data window was instantiated. Each
 batch consists of up to 32 slices of the source dataframe, with the starting index
 position of each slice progressing (or sliding) by one timestep from the
-ending index position of the previous slice. 
+starting index position of the previous slice. This results in an overlap
+between slices in which the label feature of one slice becomes an input feature
+of another slice.
 
 When the code above was executed, the properties were added to the
 ```WindowGenerator``` class. As a result, the ```train()```, ```val()``` and
