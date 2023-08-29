@@ -18,84 +18,51 @@ exercises: 10
 
 ## Introduction
 
-This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown](https://pandoc.org/MANUAL.txt) for static files and
-[R Markdown][r-markdown] for dynamic files that can render code into output. 
-Please refer to the [Introduction to The Carpentries 
-Workbench](https://carpentries.github.io/sandpaper-docs/) for full documentation.
+This lesson is the third in a series of lessons demonstrating Python libraries
+and methods for time-series analysis and forecasting.
 
-What you need to know is that there are three sections required for a valid
-Carpentries lesson:
+The first lesson, 
+[Time Series Analysis of Smart Meter Power Consmption Data](https://carpentries-incubator.github.io/python-pandas-power-consumption/), 
+introduces datetime indexing features in the Python ```Pandas``` library. Other
+topics in the lesson include grouping data, resampling by time frequency, and 
+plotting rolling averages. 
 
- 1. `questions` are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` are the learning objectives for an episode displayed with
-    the questions.
- 3. `keypoints` are displayed at the end of the episode to reinforce the
-    objectives.
+The second lesson, 
+[Modeling Power Consumption with Python](https://carpentries-incubator.github.io/python-modeling-power-consumption/),
+introduces the component processes of the SARIMAX model for single-step 
+forecasts based on a single variable.
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+This lesson builds upon the first two by applying machine learning processes
+to build models with potentially greater predictive power against larger 
+datasets. Relevant concepts include:
 
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
+- Feature engineering
+- Data windows
+- Single step forecasts
+- Multi-step forecasts
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Throughout, the lesson uses Google's ```TensorFlow``` machine learning library
+and the related Python API, ```keras```. As noted in each section of the lesson, the
+code is based upon and is in many cases a direct implementation of the 
+[Time series forecasting tutorial](https://www.tensorflow.org/tutorials/structured_data/time_series)
+available from the [TensorFlow](https://github.com/tensorflow/docs/blob/master/README.md) 
+project. Per the documentation, materials available from the TensorFlow 
+GitHub site are published using an 
+[Apache 2.0](https://github.com/tensorflow/docs/blob/master/LICENSE)
+license. 
 
-::::::::::::::::::::::::::::::::::::: challenge 
+> Google Inc. (2023) *TensorFlow Documentation.* Retrieved from [https://github.com/tensorflow/docs/blob/master/README.md](https://github.com/tensorflow/docs/blob/master/README.md).
 
-## Challenge 1: Can you do it?
-
-What is the output of this command?
-
-```r
-paste("This", "new", "lesson", "looks", "good")
-```
-
-:::::::::::::::::::::::: solution 
-
-## Output
- 
-```output
-[1] "This new lesson looks good"
-```
-
-:::::::::::::::::::::::::::::::::
-
-
-## Challenge 2: how do you nest solutions within challenge blocks?
-
-:::::::::::::::::::::::: solution 
-
-You can add a line with at least three colons and a `solution` tag.
-
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Figures
-
-You can use standard markdown for static figures with the following syntax:
-
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
-
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
-
-## Math
-
-One of our episodes contains $\LaTeX$ equations when describing how to create
-dynamic reports with {knitr}, so we now use mathjax to describe this:
-
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
-
-Cool, right?
+This lesson uses the same dataset as the previous two. For more information
+about the data, see the
+[Setup](https://carpentries-incubator.github.io/python-modeling-power-consumption/)
+page.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- The ```TensorFlow``` machine learning library from Google provides many
+algorithms and models for efficient pipelines to process and forecast
+large time-series datasets.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-[r-markdown]: https://rmarkdown.rstudio.com/
