@@ -1,10 +1,9 @@
-# The Carpentries Workbench Template Markdown Lesson
+# Time-series forecasting: Machine learning with Python.
 
-This lesson is a template lesson that uses [The Carpentries Workbench][workbench].
+This lesson is the third in a series on using Python to analyze and make
+predictions using time-series data. The lesson introduces learners to steps
+in the development of machine learning pipelines, including feature
+extraction, data windows, and the ```TensorFlow``` keras API.
 
-To get started using this template, visit https://github.com/carpentries/workbench-template-md/generate
-and follow the instructions.
-
-If you have any questions, contact [@zkamvar](https://github.com/zkamvar)
-
-[workbench]: https://carpentries.github.io/sandpaper-docs/
+For information or to contribute, contact 
+[@jonathanwheeler01](https://github.com/jonathanwheeler01)
