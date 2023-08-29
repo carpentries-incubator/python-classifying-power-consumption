@@ -1,20 +1,19 @@
 ---
 title: "Introduction"
-teaching: 10
-exercises: 2
+teaching: 20
+exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using Markdown and `{sandpaper}`?
+- How do you build machine learning pipelines for time-series analysis?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with The Carpentries Workbench
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
-
+- Introduce machine learning concepts applicable to time-series forecasting.
+- Introduce Google's ```TensorFlow``` machine learning library for Python.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
