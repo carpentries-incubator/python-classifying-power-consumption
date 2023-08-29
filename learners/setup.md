@@ -130,3 +130,20 @@ be sure to also stop the server using ```CONTROL-C```.
 1. Open a shell and enter ```python3```
 
 :::::::::::::::::::::::::
+
+## Install the TensorFlow library
+
+The lesson uses Google's ```TensorFlow``` machine learning library throughout.
+This library is not included in the default Anaconda distribution, but can be
+installed through the Navigator. With the Navigator open as described above:
+
+1. Click on the *Environments* tab in the left sidebar.
+2. From the drop down menu select "Not Installed."
+3. Enter "tensorflow" in the search box.
+4. The search will return several packages, some of which are dependencies
+for installing TensorFlow. You only need to check the box next to 
+"tensorflow," as any required dependencies will be installed along with 
+TensorFlow.
+5. Click the *Update index* button to install. You may need to restart Anaconda
+before using the new library.
+
