@@ -193,6 +193,8 @@
         <ul><li><a href="#introduction">Introduction</a></li>
 <li><a href="#about-the-code">About the code</a></li>
 <li><a href="#set-up-the-environment">Set up the environment</a></li>
+<li><a href="#create-a-multi-step-data-window">Create a multi-step data window</a></li>
+<li><a href="#create-a-baseline-model">Create a baseline model</a></li>
 <li><a href="#multi-step-linear">Multi step linear</a></li>
 <li><a href="#dense-neural-network">Dense neural network</a></li>
 <li><a href="#convolution-neural-network">Convolution neural network</a></li>
@@ -255,7 +257,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Multi Step Forecasts</h1>
-        <p> Last updated on 2023-08-29 | 
+        <p> Last updated on 2023-08-30 | 
         
         <a href="https://github.com/carpentries-incubator/python-classifying-power-consumption/edit/main/episodes/05-multi-step-forecasts.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -293,7 +295,22 @@ for forcasting multiple timesteps.</li>
 </div>
 <section id="introduction"><h2 class="section-heading">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<hr class="half-width"></section><section id="about-the-code"><h2 class="section-heading">About the code<a class="anchor" aria-label="anchor" href="#about-the-code"></a>
+<hr class="half-width"><p>In the previous section we developed models for making forecasts one
+timestep into the future. Our data consist of hourly totals of power
+consumption from a single smart meter, and most of the models were
+fitted using a one hour input width to predict the next hour’s power
+consumption. Recall that the best performing model, the convolution
+neural network, differed in that the model was fitted using a data
+window with a three hour input width. This implies that, at least for
+our data, data windows with larger input widths may increase the
+predictive power of the models.</p>
+<p>In this section we will revisit the same models as before, only this
+time we will revise our data windows to predict multiple timesteps.
+Specifically, we will forecast a full day’s worth of hourly power
+consumption based on the previous day’s history. In terms of data window
+arguments, both the <em>input_width</em> and the <em>label_width</em>
+will be equal to 24.</p>
+</section><section id="about-the-code"><h2 class="section-heading">About the code<a class="anchor" aria-label="anchor" href="#about-the-code"></a>
 </h2>
 <hr class="half-width"><p>The code for this and other sections of this lesson is based on
 time-series forecasting examples, tutorials, and other documentation
@@ -322,7 +339,11 @@ data, and defining the <code>WindowGenerator</code> class.</p>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span></code></pre>
 </div>
-<p>Read data:</p>
+<p>Read the data. These are the normalized training, validation, and
+test datasets we created in the data windowing episode. In addition to
+being normalized, columns with non-numeric data types have been removed
+from the source data. Also, based on multiple iterations of the modeling
+process some additional, numeric columns were dropped.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -384,7 +405,7 @@ None
 
 {'INTERVAL_READ': 0, 'hour': 1, 'day_sin': 2, 'day_cos': 3, 'business_day': 4}</code></pre>
 </div>
-<p>Create the <code>WindowGenerator</code> class.</p>
+<p>Finally, create the <code>WindowGenerator</code> class.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -515,9 +536,16 @@ None
 <span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>._example <span class="op">=</span> result</span>
 <span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre>
 </div>
-<p>Create a data window that will forecast 24 timesteps (label_width),
+</section><section id="create-a-multi-step-data-window"><h2 class="section-heading">Create a multi-step data window<a class="anchor" aria-label="anchor" href="#create-a-multi-step-data-window"></a>
+</h2>
+<hr class="half-width"><p>Create a data window that will forecast 24 timesteps (label_width),
 24 hours into the future (shift), based on 24 hours of history
 (input_width).</p>
+<p>Since the value of the <em>label_width</em> and <em>shift</em>
+arguments are used to set model parameters later, we will stored this
+value in a variable. This way, if we want to test different label widths
+and shift values we only need to update the <em>OUT_STEPS</em>
+variable.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -537,14 +565,27 @@ Label indices: [24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 4
 Label column name(s): None</code></pre>
 </div>
 <p>We can plot the window to demonstrate the width of the inputs and
-labels.</p>
+labels. The labels are the actual values against which predictions will
+be evaluated. In the plot below, we can see that windowed slices of the
+data consist of 24 inputs and 24 labels.</p>
+<p>Remember that our plots are rendered using an example set of three
+slices of the training data, but the models will be fitted on the entire
+training dataframe.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>multi_window.plot()</span></code></pre>
 </div>
-<figure><img src=".././fig/ep5_fig1.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of multi window input and label widths.</figcaption></figure><p>Create a naive seasonal baseline that is a subclass of the
-<code>tf.keras.Model</code> class. Add a plot.</p>
+<figure><img src=".././fig/ep5_fig1.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of multi window input and label widths.</figcaption></figure></section><section id="create-a-baseline-model"><h2 class="section-heading">Create a baseline model<a class="anchor" aria-label="anchor" href="#create-a-baseline-model"></a>
+</h2>
+<hr class="half-width"><p>As we have done in previous lessons and sections of this lesson, we
+will create a <em>naive seasonal</em> baseline forecast that is a
+subclass of the <code>tf.keras.Model</code> class. In this case, the
+values of the 24 input timesteps for each slice are used as the
+predictions for their corresponding label timesteps. This can be seen in
+a plot of the model’s predictions, in which the pattern or trend of
+predicted values duplicates the pattern or trend of the input
+values.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -564,7 +605,10 @@ labels.</p>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>multi_performance[<span class="st">'Repeat'</span>] <span class="op">=</span> repeat_baseline.evaluate(multi_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Baseline performance against validation data:"</span>, multi_val_performance[<span class="st">"Repeat"</span>])</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Baseline performance against test data:"</span>, multi_performance[<span class="st">"Repeat"</span>])</span></code></pre>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Baseline performance against test data:"</span>, multi_performance[<span class="st">"Repeat"</span>])</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co"># add a plot</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>multi_window.plot(repeat_baseline)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -573,56 +617,87 @@ labels.</p>
 Baseline performance against validation data: [0.46266090869903564, 0.218303844332695]
 Baseline performance against test data: [0.5193880200386047, 0.23921075463294983]</code></pre>
 </div>
-<p>And the plot:</p>
+<figure><img src=".././fig/ep5_fig2.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of a naive seasonal baseline model.</figcaption></figure><p>We are now ready to train models. With the addition of creating
+layered neural networks using the <code>keras</code> API, all of the
+models below will be fitted and evaluated using a workflow similar to
+that which we used for the baseline model, above. Rather than repeat the
+same code multiple times, before we go any further we will write a
+function to encapsulate the process.</p>
+<p>The function adds some features to the workflow. As noted above, the
+loss function acts as a measure of the trade-off between computational
+costs and accuracy. As the model is fitted, the loss function is used to
+monitor the model’s efficiency and provides the model an internal
+mechanism for determining a stopping point.</p>
+<p>The <code>compile()</code> method is similar to the above, with the
+addition of an <em>optimizer</em> argument. The optimizer is an
+algorithm that determines the most efficient weights for each feature as
+the model is fitted. In the current example, we are using the
+<code>Adam()</code> optimizer that is included as part of the default
+<code>TensorFlow</code> library.</p>
+<p>Finally, the model is fit using the training dataframe. The data are
+split using the data window specified in the positional <em>window</em>
+argument, in our case the single step window defined above. Predictions
+are validated against the validation data, with the process configured
+to halt at the point that accuracy no longer improves.</p>
+<p>The <em>epochs</em> argument represented the number of times the that
+the model will work through the entire training dataframe, provided it
+is not stopped before it reaches that number by the loss function. Note
+that the MAX_EPOCHS is being manually set in the code block below.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>multi_window.plot(repeat_baseline)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>MAX_EPOCHS <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compile_and_fit(model, window, patience<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  early_stopping <span class="op">=</span> tf.keras.callbacks.EarlyStopping(monitor<span class="op">=</span><span class="st">'val_loss'</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                                                    patience<span class="op">=</span>patience,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                                                    mode<span class="op">=</span><span class="st">'min'</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  model.<span class="bu">compile</span>(loss<span class="op">=</span>tf.keras.losses.MeanSquaredError(),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                optimizer<span class="op">=</span>tf.keras.optimizers.Adam(),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                metrics<span class="op">=</span>[tf.keras.metrics.MeanAbsoluteError()])</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  history <span class="op">=</span> model.fit(window.train, epochs<span class="op">=</span>MAX_EPOCHS,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                      validation_data<span class="op">=</span>window.val,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                      callbacks<span class="op">=</span>[early_stopping])</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> history</span></code></pre>
 </div>
-<figure><img src=".././fig/ep5_fig2.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of a naive seasonal baseline model.</figcaption></figure><p>As in the previous section, create a function to compile and fit the
-models.</p>
+<p>With the data window and the <code>compile_and_fit</code> function in
+place, we can fit and evaluate models as in the previous section, by
+stacking layers of processes into a machine learning pipeline using the
+<code>keras</code> API.</p>
+</section><section id="multi-step-linear"><h2 class="section-heading">Multi step linear<a class="anchor" aria-label="anchor" href="#multi-step-linear"></a>
+</h2>
+<hr class="half-width"><p>Compared with the single step linear model, the model for forecasting
+multiple timesteps requires some additional layers in order to flatten
+and reshape the data. In the definition below, the first
+<code>Lambda</code> layer flattens the input data using an inline
+function. The <em>units</em> argument in the <code>Dense</code> layer is
+set dynamically, based on the product of the label_width and the number
+of features in the dataset. Finally, the model output is reshaped to
+match the input data.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>MAX_EPOCHS <span class="op">=</span> <span class="dv">20</span></span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>num_features <span class="op">=</span> train_df.shape[<span class="dv">1</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compile_and_fit(model, window, patience<span class="op">=</span><span class="dv">2</span>):</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  early_stopping <span class="op">=</span> tf.keras.callbacks.EarlyStopping(monitor<span class="op">=</span><span class="st">'val_loss'</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                                                    patience<span class="op">=</span>patience,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                                                    mode<span class="op">=</span><span class="st">'min'</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  model.<span class="bu">compile</span>(loss<span class="op">=</span>tf.keras.losses.MeanSquaredError(),</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                optimizer<span class="op">=</span>tf.keras.optimizers.Adam(),</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                metrics<span class="op">=</span>[tf.keras.metrics.MeanAbsoluteError()])</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>multi_linear_model <span class="op">=</span> tf.keras.Sequential([</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Lambda(<span class="kw">lambda</span> x: x[:, <span class="op">-</span><span class="dv">1</span>:, :]),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(OUT_STEPS<span class="op">*</span>num_features,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                          kernel_initializer<span class="op">=</span>tf.initializers.zeros()),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Reshape([OUT_STEPS, num_features])</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(multi_linear_model, multi_window)</span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  history <span class="op">=</span> model.fit(window.train, epochs<span class="op">=</span>MAX_EPOCHS,</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                      validation_data<span class="op">=</span>window.val,</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                      callbacks<span class="op">=</span>[early_stopping])</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> history</span></code></pre>
-</div>
-<p>For this lesson we will be fitting and evaluating single shot
-models.</p>
-</section><section id="multi-step-linear"><h2 class="section-heading">Multi step linear<a class="anchor" aria-label="anchor" href="#multi-step-linear"></a>
-</h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb12">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>num_features <span class="op">=</span> train_df.shape[<span class="dv">1</span>]</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>multi_linear_model <span class="op">=</span> tf.keras.Sequential([</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Lambda(<span class="kw">lambda</span> x: x[:, <span class="op">-</span><span class="dv">1</span>:, :]),</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(OUT_STEPS<span class="op">*</span>num_features,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                          kernel_initializer<span class="op">=</span>tf.initializers.zeros()),</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Reshape([OUT_STEPS, num_features])</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(multi_linear_model, multi_window)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>multi_val_performance[<span class="st">'Linear'</span>] <span class="op">=</span> multi_linear_model.evaluate(multi_window.val)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>multi_performance[<span class="st">'Linear'</span>] <span class="op">=</span> multi_linear_model.evaluate(multi_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear performance against validation data:"</span>, multi_val_performance[<span class="st">"Linear"</span>])</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear performance against test data:"</span>, multi_performance[<span class="st">"Linear"</span>])</span></code></pre>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>multi_val_performance[<span class="st">'Linear'</span>] <span class="op">=</span> multi_linear_model.evaluate(multi_window.val)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>multi_performance[<span class="st">'Linear'</span>] <span class="op">=</span> multi_linear_model.evaluate(multi_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear performance against validation data:"</span>, multi_val_performance[<span class="st">"Linear"</span>])</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear performance against test data:"</span>, multi_performance[<span class="st">"Linear"</span>])</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># add a plot</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>multi_window.plot(multi_linear_model)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -633,32 +708,26 @@ models.</p>
 Linear performance against validation data: [0.30350184440612793, 0.28051623702049255]
 Linear performance against test data: [0.339562326669693, 0.28846967220306396]</code></pre>
 </div>
-<p>And plot:</p>
-<div class="codewrapper sourceCode" id="cb14">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>multi_window.plot(multi_linear_model)</span></code></pre>
-</div>
 <figure><img src=".././fig/ep5_fig3.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of a multi step linear model.</figcaption></figure></section><section id="dense-neural-network"><h2 class="section-heading">Dense neural network<a class="anchor" aria-label="anchor" href="#dense-neural-network"></a>
 </h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb15">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>multi_dense_model <span class="op">=</span> tf.keras.Sequential([</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Lambda(<span class="kw">lambda</span> x: x[:, <span class="op">-</span><span class="dv">1</span>:, :]),</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(<span class="dv">512</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(OUT_STEPS<span class="op">*</span>num_features,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                          kernel_initializer<span class="op">=</span>tf.initializers.zeros()),</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Reshape([OUT_STEPS, num_features])</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(multi_dense_model, multi_window)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>multi_val_performance[<span class="st">'Dense'</span>] <span class="op">=</span> multi_dense_model.evaluate(multi_window.val)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>multi_performance[<span class="st">'Dense'</span>] <span class="op">=</span> multi_dense_model.evaluate(multi_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dense performance against validation data:"</span>, multi_val_performance[<span class="st">"Dense"</span>])</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dense performance against test data:"</span>, multi_performance[<span class="st">"Dense"</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>multi_dense_model <span class="op">=</span> tf.keras.Sequential([</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Lambda(<span class="kw">lambda</span> x: x[:, <span class="op">-</span><span class="dv">1</span>:, :]),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(<span class="dv">512</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(OUT_STEPS<span class="op">*</span>num_features,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                          kernel_initializer<span class="op">=</span>tf.initializers.zeros()),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Reshape([OUT_STEPS, num_features])</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(multi_dense_model, multi_window)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>multi_val_performance[<span class="st">'Dense'</span>] <span class="op">=</span> multi_dense_model.evaluate(multi_window.val)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>multi_performance[<span class="st">'Dense'</span>] <span class="op">=</span> multi_dense_model.evaluate(multi_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dense performance against validation data:"</span>, multi_val_performance[<span class="st">"Dense"</span>])</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dense performance against test data:"</span>, multi_performance[<span class="st">"Dense"</span>])</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -670,32 +739,32 @@ Dense performance against validation data: [0.2058122605085373, 0.18464779853820
 Dense performance against test data: [0.22725100815296173, 0.19131870567798615]</code></pre>
 </div>
 <p>And plot:</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>multi_window.plot(multi_dense_model)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>multi_window.plot(multi_dense_model)</span></code></pre>
 </div>
 <figure><img src=".././fig/ep5_fig4.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of a multi step dense neural network.</figcaption></figure></section><section id="convolution-neural-network"><h2 class="section-heading">Convolution neural network<a class="anchor" aria-label="anchor" href="#convolution-neural-network"></a>
 </h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb18">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>CONV_WIDTH <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>multi_conv_model <span class="op">=</span> tf.keras.Sequential([</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Lambda(<span class="kw">lambda</span> x: x[:, <span class="op">-</span>CONV_WIDTH:, :]),</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Conv1D(<span class="dv">256</span>, activation<span class="op">=</span><span class="st">'relu'</span>, kernel_size<span class="op">=</span>(CONV_WIDTH)),</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(OUT_STEPS<span class="op">*</span>num_features,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                          kernel_initializer<span class="op">=</span>tf.initializers.zeros()),</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Reshape([OUT_STEPS, num_features])</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(multi_conv_model, multi_window)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>multi_val_performance[<span class="st">'Conv'</span>] <span class="op">=</span> multi_conv_model.evaluate(multi_window.val)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>multi_performance[<span class="st">'Conv'</span>] <span class="op">=</span> multi_conv_model.evaluate(multi_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CNN performance against validation data:"</span>, multi_val_performance[<span class="st">"Conv"</span>])</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CNN performance against test data:"</span>, multi_performance[<span class="st">"Conv"</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>CONV_WIDTH <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>multi_conv_model <span class="op">=</span> tf.keras.Sequential([</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Lambda(<span class="kw">lambda</span> x: x[:, <span class="op">-</span>CONV_WIDTH:, :]),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Conv1D(<span class="dv">256</span>, activation<span class="op">=</span><span class="st">'relu'</span>, kernel_size<span class="op">=</span>(CONV_WIDTH)),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(OUT_STEPS<span class="op">*</span>num_features,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                          kernel_initializer<span class="op">=</span>tf.initializers.zeros()),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Reshape([OUT_STEPS, num_features])</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(multi_conv_model, multi_window)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>multi_val_performance[<span class="st">'Conv'</span>] <span class="op">=</span> multi_conv_model.evaluate(multi_window.val)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>multi_performance[<span class="st">'Conv'</span>] <span class="op">=</span> multi_conv_model.evaluate(multi_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CNN performance against validation data:"</span>, multi_val_performance[<span class="st">"Conv"</span>])</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CNN performance against test data:"</span>, multi_performance[<span class="st">"Conv"</span>])</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -707,31 +776,31 @@ CNN performance against validation data: [0.20042525231838226, 0.179121389985084
 CNN performance against test data: [0.2245914489030838, 0.18907274305820465]</code></pre>
 </div>
 <p>And plot:</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>multi_window.plot(multi_conv_model)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>multi_window.plot(multi_conv_model)</span></code></pre>
 </div>
 <figure><img src=".././fig/ep5_fig5.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of a multi step convolution neural network.</figcaption></figure></section><section id="recurrent-neural-network-lstm"><h2 class="section-heading">Recurrent neural network (LSTM)<a class="anchor" aria-label="anchor" href="#recurrent-neural-network-lstm"></a>
 </h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb21">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>multi_lstm_model <span class="op">=</span> tf.keras.Sequential([</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.LSTM(<span class="dv">32</span>, return_sequences<span class="op">=</span><span class="va">False</span>),</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(OUT_STEPS<span class="op">*</span>num_features,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                          kernel_initializer<span class="op">=</span>tf.initializers.zeros()),</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Reshape([OUT_STEPS, num_features])</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(multi_lstm_model, multi_window)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>multi_val_performance[<span class="st">'LSTM'</span>] <span class="op">=</span> multi_lstm_model.evaluate(multi_window.val)</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>multi_performance[<span class="st">'LSTM'</span>] <span class="op">=</span> multi_lstm_model.evaluate(multi_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LSTM performance against validation data:"</span>, multi_val_performance[<span class="st">"LSTM"</span>])</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LSTM performance against test data:"</span>, multi_performance[<span class="st">"LSTM"</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>multi_lstm_model <span class="op">=</span> tf.keras.Sequential([</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.LSTM(<span class="dv">32</span>, return_sequences<span class="op">=</span><span class="va">False</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(OUT_STEPS<span class="op">*</span>num_features,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                          kernel_initializer<span class="op">=</span>tf.initializers.zeros()),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Reshape([OUT_STEPS, num_features])</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(multi_lstm_model, multi_window)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>multi_val_performance[<span class="st">'LSTM'</span>] <span class="op">=</span> multi_lstm_model.evaluate(multi_window.val)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>multi_performance[<span class="st">'LSTM'</span>] <span class="op">=</span> multi_lstm_model.evaluate(multi_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LSTM performance against validation data:"</span>, multi_val_performance[<span class="st">"LSTM"</span>])</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LSTM performance against test data:"</span>, multi_performance[<span class="st">"LSTM"</span>])</span></code></pre>
 </div>
 <pre class="ouput"><code>Epoch 20/20
 574/574 [==============================] - 5s 9ms/step - loss: 0.1990 - mean_absolute_error: 0.1895 - val_loss: 0.1760 - val_mean_absolute_error: 0.1786
@@ -739,18 +808,18 @@ CNN performance against test data: [0.2245914489030838, 0.18907274305820465]</co
 LSTM performance against validation data: [0.17599913477897644, 0.17859137058258057]
 LSTM performance against test data: [0.19873034954071045, 0.18935032188892365]</code></pre>
 <p>And plot:</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>multi_window.plot(multi_lstm_model)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>multi_window.plot(multi_lstm_model)</span></code></pre>
 </div>
 <figure><img src=".././fig/ep5_fig6.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of a multi step LSTM neural network.</figcaption></figure></section><section id="evaluate"><h2 class="section-heading">Evaluate<a class="anchor" aria-label="anchor" href="#evaluate"></a>
 </h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb24">
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> multi_performance.items():</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>name<span class="sc">:8s}</span><span class="ss">: </span><span class="sc">{</span>value[<span class="dv">1</span>]<span class="sc">:0.4f}</span><span class="ss">'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> multi_performance.items():</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>name<span class="sc">:8s}</span><span class="ss">: </span><span class="sc">{</span>value[<span class="dv">1</span>]<span class="sc">:0.4f}</span><span class="ss">'</span>)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -762,23 +831,23 @@ LSTM performance against test data: [0.19873034954071045, 0.18935032188892365]</
 <span><span class="va">LSTM</span>    <span class="op">:</span> <span class="fl">0.1894</span></span></code></pre>
 </div>
 <p>Plot MAE on validation and test dataframes.</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="bu">len</span>(multi_performance))</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>width <span class="op">=</span> <span class="fl">0.3</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>metric_name <span class="op">=</span> <span class="st">'mean_absolute_error'</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>metric_index <span class="op">=</span> multi_lstm_model.metrics_names.index(<span class="st">'mean_absolute_error'</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>val_mae <span class="op">=</span> [v[metric_index] <span class="cf">for</span> v <span class="kw">in</span> multi_val_performance.values()]</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>test_mae <span class="op">=</span> [v[metric_index] <span class="cf">for</span> v <span class="kw">in</span> multi_performance.values()]</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>plt.bar(x <span class="op">-</span> <span class="fl">0.17</span>, val_mae, width, label<span class="op">=</span><span class="st">'Validation'</span>)</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>plt.bar(x <span class="op">+</span> <span class="fl">0.17</span>, test_mae, width, label<span class="op">=</span><span class="st">'Test'</span>)</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>plt.xticks(ticks<span class="op">=</span>x, labels<span class="op">=</span>multi_performance.keys(),</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>           rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="ss">f'MAE (average over all times and outputs)'</span>)</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.legend()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="bu">len</span>(multi_performance))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>width <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>metric_name <span class="op">=</span> <span class="st">'mean_absolute_error'</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>metric_index <span class="op">=</span> multi_lstm_model.metrics_names.index(<span class="st">'mean_absolute_error'</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>val_mae <span class="op">=</span> [v[metric_index] <span class="cf">for</span> v <span class="kw">in</span> multi_val_performance.values()]</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>test_mae <span class="op">=</span> [v[metric_index] <span class="cf">for</span> v <span class="kw">in</span> multi_performance.values()]</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>plt.bar(x <span class="op">-</span> <span class="fl">0.17</span>, val_mae, width, label<span class="op">=</span><span class="st">'Validation'</span>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>plt.bar(x <span class="op">+</span> <span class="fl">0.17</span>, test_mae, width, label<span class="op">=</span><span class="st">'Test'</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>plt.xticks(ticks<span class="op">=</span>x, labels<span class="op">=</span>multi_performance.keys(),</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>           rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="ss">f'MAE (average over all times and outputs)'</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.legend()</span></code></pre>
 </div>
 <figure><img src=".././fig/ep5_fig7.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of MAE of all forecasts against test and
 validation data.</figcaption></figure><div id="keypoints1" class="callout keypoints">
@@ -850,9 +919,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries-incubator.github.io/python-classifying-power-consumption/instructor/05-multi-step-forecasts.html",
   "identifier": "https://carpentries-incubator.github.io/python-classifying-power-consumption/instructor/05-multi-step-forecasts.html",
-  "dateCreated": "2023-08-29",
-  "dateModified": "2023-08-29",
-  "datePublished": "2023-08-29"
+  "dateCreated": "2023-08-30",
+  "dateModified": "2023-08-30",
+  "datePublished": "2023-08-30"
 }
 
   </script><script>
