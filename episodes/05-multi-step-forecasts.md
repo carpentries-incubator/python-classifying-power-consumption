@@ -19,6 +19,20 @@ forcasting multiple timesteps.
 
 ## Introduction
 
+In the previous section we developed models for making forecasts one timestep
+into the future. Our data consist of hourly totals of power consumption
+from a single smart meter, and most of the models were fitted using a one
+hour input width to predict the next hour's power consumption. Recall that the
+best performing model, the convolution neural network, differed in that the
+model was fitted using a data window with a three hour input width. This implies
+that, at least for our data, data windows with larger input widths may increase
+the predictive power of the models.
+
+In this section we will revisit the same models as before, only this time we
+will revise our data windows to predict multiple timesteps. Specifically, we
+will forecast a full day's worth of hourly power consumption based on the 
+previous day's history. In terms of data window arguments, both the *input_width*
+and the *label_width* will be equal to 24. 
 
 ## About the code
 
@@ -50,7 +64,11 @@ import seaborn as sns
 import tensorflow as tf
 ```
 
-Read data:
+Read the data. These are the normalized training, validation, and test datasets
+we created in the data windowing episode. In addition to being normalized, 
+columns with non-numeric data types have been removed from the source data. 
+Also, based on multiple iterations of the modeling process some additional, 
+numeric columns were dropped. 
 
 ```python
 train_df = pd.read_csv("../../data/training_df.csv")
@@ -111,7 +129,7 @@ None
 {'INTERVAL_READ': 0, 'hour': 1, 'day_sin': 2, 'day_cos': 3, 'business_day': 4}
 ```
 
-Create the ```WindowGenerator``` class.
+Finally, create the ```WindowGenerator``` class.
 
 ```python
 class WindowGenerator():
@@ -242,8 +260,15 @@ class WindowGenerator():
     return result
 ```
 
+## Create a multi-step data window
+
 Create a data window that will forecast 24 timesteps (label_width), 24 hours
 into the future (shift), based on 24 hours of history (input_width).
+
+Since the value of the *label_width* and *shift* arguments are used to set
+model parameters later, we will stored this value in a variable. This way, if
+we want to test different label widths and shift values we only need to update
+the *OUT_STEPS* variable.
 
 ```python
 OUT_STEPS = 24
@@ -261,7 +286,14 @@ Label indices: [24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 4
 Label column name(s): None
 ```
 
-We can plot the window to demonstrate the width of the inputs and labels.
+We can plot the window to demonstrate the width of the inputs and labels. The 
+labels are the actual values against which predictions will be evaluated. In the
+plot below, we can see that windowed slices of the data consist of 24 inputs
+and 24 labels.
+
+Remember that our plots are rendered using an example set of three slices of
+the training data, but the models will be fitted on the entire training 
+dataframe.
 
 ```python
 multi_window.plot()
@@ -269,8 +301,14 @@ multi_window.plot()
 
 ![Plot of multi window input and label widths.](./fig/ep5_fig1.png)
 
-Create a naive seasonal baseline that is a subclass of the ```tf.keras.Model```
-class. Add a plot.
+## Create a baseline model
+
+As we have done in previous lessons and sections of this lesson, we will create
+a *naive seasonal* baseline forecast that is a subclass of the ```tf.keras.Model```
+class. In this case, the values of the 24 input timesteps for each slice 
+are used as the predictions for their corresponding label timesteps. This can
+be seen in a plot of the model's predictions, in which the pattern or trend of
+predicted values duplicates the pattern or trend of the input values.
 
 ```python
 class RepeatBaseline(tf.keras.Model):
@@ -290,6 +328,9 @@ multi_performance['Repeat'] = repeat_baseline.evaluate(multi_window.test, verbos
 
 print("Baseline performance against validation data:", multi_val_performance["Repeat"])
 print("Baseline performance against test data:", multi_performance["Repeat"])
+
+# add a plot
+multi_window.plot(repeat_baseline)
 ```
 
 ```output
@@ -298,15 +339,36 @@ Baseline performance against validation data: [0.46266090869903564, 0.2183038443
 Baseline performance against test data: [0.5193880200386047, 0.23921075463294983]
 ```
 
-And the plot:
-
-```python
-multi_window.plot(repeat_baseline)
-```
-
 ![Plot of a naive seasonal baseline model.](./fig/ep5_fig2.png)
 
-As in the previous section, create a function to compile and fit the models.
+We are now ready to train models. With the addition of creating layered
+neural networks using the ```keras``` API, all of the models below will be 
+fitted and evaluated using a workflow similar to that which we used for the
+baseline model, above. Rather than repeat the same code multiple times, before
+we go any further we will write a function to encapsulate the process.
+
+The function adds some features to the workflow. As noted above, the loss 
+function acts as a measure of the trade-off between computational costs and
+accuracy. As the model is fitted, the loss function is used to monitor the
+model's efficiency and provides the model an internal mechanism for determining
+a stopping point. 
+
+The ```compile()``` method is similar to the above, with the addition of an 
+*optimizer* argument. The optimizer is an algorithm that determines the most
+efficient weights for each feature as the model is fitted. In the current
+example, we are using the ```Adam()``` optimizer that is included as part of
+the default ```TensorFlow``` library.
+
+Finally, the model is fit using the training dataframe. The data are split
+using the data window specified in the positional *window* argument, in our
+case the single step window defined above. Predictions are validated against
+the validation data, with the process configured to halt at the point that
+accuracy no longer improves. 
+
+The *epochs* argument represented the number of times the that the model will
+work through the entire training dataframe, provided it is not stopped before
+it reaches that number by the loss function. Note that the MAX_EPOCHS is
+being manually set in the code block below.
 
 ```python
 MAX_EPOCHS = 20
@@ -326,9 +388,19 @@ def compile_and_fit(model, window, patience=2):
   return history
 ```
 
-For this lesson we will be fitting and evaluating single shot models.
+With the data window and the ```compile_and_fit``` function in place, we can
+fit and evaluate models as in the previous section, by stacking layers
+of processes into a machine learning pipeline using the ```keras``` API.
 
 ## Multi step linear
+
+Compared with the single step linear model, the model for forecasting multiple
+timesteps requires some additional layers in order to flatten and reshape the
+data. In the definition below, the first ```Lambda``` layer flattens the input
+data using an inline function. The *units* argument in the ```Dense``` layer is
+set dynamically, based on the product of the label_width and the number of 
+features in the dataset. Finally, the model output is reshaped to match the
+input data.
 
 ```python
 num_features = train_df.shape[1]
@@ -347,6 +419,9 @@ multi_performance['Linear'] = multi_linear_model.evaluate(multi_window.test, ver
 
 print("Linear performance against validation data:", multi_val_performance["Linear"])
 print("Linear performance against test data:", multi_performance["Linear"])
+
+# add a plot
+multi_window.plot(multi_linear_model)
 ```
 
 ```output
@@ -355,12 +430,6 @@ Epoch 10/20
 163/163 [==============================] - 0s 929us/step - loss: 0.3035 - mean_absolute_error: 0.2805
 Linear performance against validation data: [0.30350184440612793, 0.28051623702049255]
 Linear performance against test data: [0.339562326669693, 0.28846967220306396]
-```
-
-And plot:
-
-```python
-multi_window.plot(multi_linear_model)
 ```
 
 ![Plot of a multi step linear model.](./fig/ep5_fig3.png)
