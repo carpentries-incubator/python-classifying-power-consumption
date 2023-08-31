@@ -437,6 +437,11 @@ Linear performance against test data: [0.339562326669693, 0.28846967220306396]
 
 ## Dense neural network
 
+Similar to the definition of the dense model for single step forecasts, the
+definition of the multi-step dense model adds a ```Dense``` layer to the
+preceeding linear model pipeline. The activation function is again ```relu```,
+and the units argument is increased to 512. The unit argument specifies the
+shape of the output that is passed to the next layer.
 
 ```python
 multi_dense_model = tf.keras.Sequential([
@@ -454,6 +459,9 @@ multi_performance['Dense'] = multi_dense_model.evaluate(multi_window.test, verbo
 
 print("Dense performance against validation data:", multi_val_performance["Dense"])
 print("Dense performance against test data:", multi_performance["Dense"])
+
+# add a plot
+multi_window.plot(multi_dense_model)
 ```
 
 ```output
@@ -464,15 +472,15 @@ Dense performance against validation data: [0.2058122605085373, 0.18464779853820
 Dense performance against test data: [0.22725100815296173, 0.19131870567798615]
 ```
 
-And plot:
-
-```python
-multi_window.plot(multi_dense_model)
-```
-
 ![Plot of a multi step dense neural network.](./fig/ep5_fig4.png)
 
 ## Convolution neural network
+
+For the multi-step convolution neural network model, the first ```Dense```
+layer of the previous multi-step dense model is replaced with a one dimensional
+convolution layer. The arguments to this layer include the number of filters,
+in this case 256, and the kernal size, which specifies the width of the 
+convolution window.
 
 ```python
 CONV_WIDTH = 3
@@ -491,6 +499,9 @@ multi_performance['Conv'] = multi_conv_model.evaluate(multi_window.test, verbose
 
 print("CNN performance against validation data:", multi_val_performance["Conv"])
 print("CNN performance against test data:", multi_performance["Conv"])
+
+# add a plot
+multi_window.plot(multi_conv_model)
 ```
 
 ```output
@@ -501,16 +512,18 @@ CNN performance against validation data: [0.20042525231838226, 0.179121389985084
 CNN performance against test data: [0.2245914489030838, 0.18907274305820465]
 ```
 
-And plot:
-
-```python
-multi_window.plot(multi_conv_model)
-```
-
 ![Plot of a multi step convolution neural network.](./fig/ep5_fig5.png)
 
 
 ## Recurrent neural network (LSTM)
+
+Recall that the recurrent neural network model maintains an internal state
+based on consecutive inputs. For this reason, the ```lamba``` function used so
+far to flatten the model input is not necessary in this case. Instead, a single
+Long Short-Term Memory (```LSTM```) layer processes the mode input that is 
+passed to the ```Dense``` layer. The position *units* argument of 32 specifies
+the shape of the output. The *return_sequences* argument is here set to false
+so that the internal state will be maintained until the final input timestep.
 
 ```python
 multi_lstm_model = tf.keras.Sequential([
@@ -528,6 +541,9 @@ multi_performance['LSTM'] = multi_lstm_model.evaluate(multi_window.test, verbose
 
 print("LSTM performance against validation data:", multi_val_performance["LSTM"])
 print("LSTM performance against test data:", multi_performance["LSTM"])
+
+# add a plot
+multi_window.plot(multi_lstm_model)
 ```
 
 ```ouput
@@ -538,15 +554,20 @@ LSTM performance against validation data: [0.17599913477897644, 0.17859137058258
 LSTM performance against test data: [0.19873034954071045, 0.18935032188892365]
 ```
 
-And plot:
-
-```python
-multi_window.plot(multi_lstm_model)
-```
-
 ![Plot of a multi step LSTM neural network.](./fig/ep5_fig6.png)
 
 ## Evaluate
+
+From monitoring the output of the different models for each epoch, we can see
+that in general all of the multi-step models outperform all of the single 
+step models. Multiple factors can influence model performance, including the
+size of the dataset, feature engineering, and data normalization. It is not
+necessarily true that multi-step models will always generally outperform
+single step models, though that happened to be the case for this dataset.
+
+Similar to the results of the single step models, the convolution neural network
+performed best overall, though only slightly better than the LSTM model. All
+three of the neural network models outperformed the baseline and linear models.
 
 ```python
 for name, value in multi_performance.items():
@@ -561,7 +582,8 @@ Conv    : 0.1891
 LSTM    : 0.1894
 ```
 
-Plot MAE on validation and test dataframes.
+Finally, the below plot provides a comparison of each model's performance 
+against both the validation and test dataframes.
 
 ```python
 x = np.arange(len(multi_performance))
