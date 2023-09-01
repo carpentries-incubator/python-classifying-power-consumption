@@ -340,6 +340,21 @@ as the way in which the ```WindowGenerator``` class has been defined allows us
 to fit a model using the single step window and plot the forecasts from that 
 same model using the wide window. 
 
+```python
+wide_window = WindowGenerator(
+    input_width=24, label_width=24, shift=1,
+    label_columns=['INTERVAL_READ'])
+
+print(wide_window)
+```
+
+```output
+Total window size: 25
+Input indices: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23]
+Label indices: [ 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24]
+Label column name(s): ['INTERVAL_READ']
+```
+
 ## Define basline forecast
 
 As with any modeling process, it is important to establish a baseline forecast
