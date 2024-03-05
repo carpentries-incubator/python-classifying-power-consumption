@@ -341,15 +341,15 @@ the datasets need to be read first.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython.display</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> IPython</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">import</span> IPython.display</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span></code></pre>
 </div>
 <p>Now, read the training, validation, and test datasets into memory.
 Recall that the data were normalized in the previous section before
@@ -359,16 +359,16 @@ processing.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>train_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/training_df.csv"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>val_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/val_df.csv"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>test_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/test_df.csv"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>column_indices <span class="op">=</span> {name: i <span class="cf">for</span> i, name <span class="kw">in</span> <span class="bu">enumerate</span>(test_df.columns)}</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(train_df.info())</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(val_df.info())</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(test_df.info())</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(column_indices)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>train_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/training_df.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>val_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/val_df.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>test_df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/test_df.csv"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>column_indices <span class="op">=</span> {name: i <span class="cf">for</span> i, name <span class="kw">in</span> <span class="bu">enumerate</span>(test_df.columns)}</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="bu">print</span>(train_df.info())</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="bu">print</span>(val_df.info())</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="bu">print</span>(test_df.info())</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="bu">print</span>(column_indices)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -425,143 +425,142 @@ here we are simply copying all of the class code in at once.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> WindowGenerator():</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_width, label_width, shift,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>               train_df<span class="op">=</span>train_df, val_df<span class="op">=</span>val_df, test_df<span class="op">=</span>test_df,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>               label_columns<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Store the raw data.</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.train_df <span class="op">=</span> train_df</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.val_df <span class="op">=</span> val_df</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.test_df <span class="op">=</span> test_df</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Work out the label column indices.</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.label_columns <span class="op">=</span> label_columns</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> label_columns <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.label_columns_indices <span class="op">=</span> {name: i <span class="cf">for</span> i, name <span class="kw">in</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                                    <span class="bu">enumerate</span>(label_columns)}</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.column_indices <span class="op">=</span> {name: i <span class="cf">for</span> i, name <span class="kw">in</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                           <span class="bu">enumerate</span>(train_df.columns)}</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Work out the window parameters.</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.input_width <span class="op">=</span> input_width</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.label_width <span class="op">=</span> label_width</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.shift <span class="op">=</span> shift</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.total_window_size <span class="op">=</span> input_width <span class="op">+</span> shift</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.input_slice <span class="op">=</span> <span class="bu">slice</span>(<span class="dv">0</span>, input_width)</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.input_indices <span class="op">=</span> np.arange(<span class="va">self</span>.total_window_size)[<span class="va">self</span>.input_slice]</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.label_start <span class="op">=</span> <span class="va">self</span>.total_window_size <span class="op">-</span> <span class="va">self</span>.label_width</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.labels_slice <span class="op">=</span> <span class="bu">slice</span>(<span class="va">self</span>.label_start, <span class="va">None</span>)</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.label_indices <span class="op">=</span> np.arange(<span class="va">self</span>.total_window_size)[<span class="va">self</span>.labels_slice]</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>.join([</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f'Total window size: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>total_window_size<span class="sc">}</span><span class="ss">'</span>,</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f'Input indices: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>input_indices<span class="sc">}</span><span class="ss">'</span>,</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f'Label indices: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>label_indices<span class="sc">}</span><span class="ss">'</span>,</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f'Label column name(s): </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>label_columns<span class="sc">}</span><span class="ss">'</span>])</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> split_window(<span class="va">self</span>, features):</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> features[:, <span class="va">self</span>.input_slice, :]</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> features[:, <span class="va">self</span>.labels_slice, :]</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="va">self</span>.label_columns <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>      labels <span class="op">=</span> tf.stack(</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>          [labels[:, :, <span class="va">self</span>.column_indices[name]] <span class="cf">for</span> name <span class="kw">in</span> <span class="va">self</span>.label_columns],</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>          axis<span class="op">=-</span><span class="dv">1</span>)</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Slicing doesn't preserve static shape information, so set the shapes</span></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># manually. This way the `tf.data.Datasets` are easier to inspect.</span></span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>    inputs.set_shape([<span class="va">None</span>, <span class="va">self</span>.input_width, <span class="va">None</span>])</span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>    labels.set_shape([<span class="va">None</span>, <span class="va">self</span>.label_width, <span class="va">None</span>])</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inputs, labels</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> plot(<span class="va">self</span>, model<span class="op">=</span><span class="va">None</span>, plot_col<span class="op">=</span><span class="st">'INTERVAL_READ'</span>, max_subplots<span class="op">=</span><span class="dv">3</span>):</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>    inputs, labels <span class="op">=</span> <span class="va">self</span>.example</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    plot_col_index <span class="op">=</span> <span class="va">self</span>.column_indices[plot_col]</span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    max_n <span class="op">=</span> <span class="bu">min</span>(max_subplots, <span class="bu">len</span>(inputs))</span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(max_n):</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>      plt.subplot(max_n, <span class="dv">1</span>, n<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>      plt.ylabel(<span class="ss">f'</span><span class="sc">{</span>plot_col<span class="sc">}</span><span class="ss"> [normed]'</span>)</span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>      plt.plot(<span class="va">self</span>.input_indices, inputs[n, :, plot_col_index],</span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>               label<span class="op">=</span><span class="st">'Inputs'</span>, marker<span class="op">=</span><span class="st">'.'</span>, zorder<span class="op">=-</span><span class="dv">10</span>)</span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="va">self</span>.label_columns:</span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        label_col_index <span class="op">=</span> <span class="va">self</span>.label_columns_indices.get(plot_col, <span class="va">None</span>)</span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span>:</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>        label_col_index <span class="op">=</span> plot_col_index</span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> label_col_index <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>      plt.scatter(<span class="va">self</span>.label_indices, labels[n, :, label_col_index],</span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>                  edgecolors<span class="op">=</span><span class="st">'k'</span>, label<span class="op">=</span><span class="st">'Labels'</span>, c<span class="op">=</span><span class="st">'#2ca02c'</span>, s<span class="op">=</span><span class="dv">64</span>)</span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> model <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>        predictions <span class="op">=</span> model(inputs)</span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>        plt.scatter(<span class="va">self</span>.label_indices, predictions[n, :, label_col_index],</span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>                    marker<span class="op">=</span><span class="st">'X'</span>, edgecolors<span class="op">=</span><span class="st">'k'</span>, label<span class="op">=</span><span class="st">'Predictions'</span>,</span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>                    c<span class="op">=</span><span class="st">'#ff7f0e'</span>, s<span class="op">=</span><span class="dv">64</span>)</span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>        plt.legend()</span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Time [h]'</span>)</span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> make_dataset(<span class="va">self</span>, data):</span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> np.array(data, dtype<span class="op">=</span>np.float32)</span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>    ds <span class="op">=</span> tf.keras.utils.timeseries_dataset_from_array(</span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>data,</span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>        targets<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>        sequence_length<span class="op">=</span><span class="va">self</span>.total_window_size,</span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>        sequence_stride<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>        shuffle<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>        batch_size<span class="op">=</span><span class="dv">32</span>)</span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>    ds <span class="op">=</span> ds.<span class="bu">map</span>(<span class="va">self</span>.split_window)</span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ds</span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>  <span class="at">@property</span></span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> train(<span class="va">self</span>):</span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.make_dataset(<span class="va">self</span>.train_df)</span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>  <span class="at">@property</span></span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> val(<span class="va">self</span>):</span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.make_dataset(<span class="va">self</span>.val_df)</span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>  <span class="at">@property</span></span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> test(<span class="va">self</span>):</span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.make_dataset(<span class="va">self</span>.test_df)</span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>  <span class="at">@property</span></span>
-<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> example(<span class="va">self</span>):</span>
-<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Get and cache an example batch of `inputs, labels` for plotting."""</span></span>
-<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="bu">getattr</span>(<span class="va">self</span>, <span class="st">'_example'</span>, <span class="va">None</span>)</span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> result <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>      <span class="co"># No example batch was found, so get one from the `.train` dataset</span></span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>      result <span class="op">=</span> <span class="bu">next</span>(<span class="bu">iter</span>(<span class="va">self</span>.train))</span>
-<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>      <span class="co"># And cache it for next time</span></span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>._example <span class="op">=</span> result</span>
-<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="kw">class</span> WindowGenerator():</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_width, label_width, shift,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>               train_df<span class="op">=</span>train_df, val_df<span class="op">=</span>val_df, test_df<span class="op">=</span>test_df,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>               label_columns<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="co"># Store the raw data.</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="va">self</span>.train_df <span class="op">=</span> train_df</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    <span class="va">self</span>.val_df <span class="op">=</span> val_df</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    <span class="va">self</span>.test_df <span class="op">=</span> test_df</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>    <span class="co"># Work out the label column indices.</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>    <span class="va">self</span>.label_columns <span class="op">=</span> label_columns</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>    <span class="cf">if</span> label_columns <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>      <span class="va">self</span>.label_columns_indices <span class="op">=</span> {name: i <span class="cf">for</span> i, name <span class="kw">in</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>                                    <span class="bu">enumerate</span>(label_columns)}</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>    <span class="va">self</span>.column_indices <span class="op">=</span> {name: i <span class="cf">for</span> i, name <span class="kw">in</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>                           <span class="bu">enumerate</span>(train_df.columns)}</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>    <span class="co"># Work out the window parameters.</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>    <span class="va">self</span>.input_width <span class="op">=</span> input_width</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>    <span class="va">self</span>.label_width <span class="op">=</span> label_width</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>    <span class="va">self</span>.shift <span class="op">=</span> shift</span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>    <span class="va">self</span>.total_window_size <span class="op">=</span> input_width <span class="op">+</span> shift</span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>    <span class="va">self</span>.input_slice <span class="op">=</span> <span class="bu">slice</span>(<span class="dv">0</span>, input_width)</span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a>    <span class="va">self</span>.input_indices <span class="op">=</span> np.arange(<span class="va">self</span>.total_window_size)[<span class="va">self</span>.input_slice]</span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>    <span class="va">self</span>.label_start <span class="op">=</span> <span class="va">self</span>.total_window_size <span class="op">-</span> <span class="va">self</span>.label_width</span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a>    <span class="va">self</span>.labels_slice <span class="op">=</span> <span class="bu">slice</span>(<span class="va">self</span>.label_start, <span class="va">None</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a>    <span class="va">self</span>.label_indices <span class="op">=</span> np.arange(<span class="va">self</span>.total_window_size)[<span class="va">self</span>.labels_slice]</span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>.join([</span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a>        <span class="ss">f'Total window size: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>total_window_size<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a>        <span class="ss">f'Input indices: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>input_indices<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>        <span class="ss">f'Label indices: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>label_indices<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>        <span class="ss">f'Label column name(s): </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>label_columns<span class="sc">}</span><span class="ss">'</span>])</span>
+<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a>  <span class="kw">def</span> split_window(<span class="va">self</span>, features):</span>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a>    inputs <span class="op">=</span> features[:, <span class="va">self</span>.input_slice, :]</span>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a>    labels <span class="op">=</span> features[:, <span class="va">self</span>.labels_slice, :]</span>
+<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a>    <span class="cf">if</span> <span class="va">self</span>.label_columns <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a>      labels <span class="op">=</span> tf.stack(</span>
+<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a>          [labels[:, :, <span class="va">self</span>.column_indices[name]] <span class="cf">for</span> name <span class="kw">in</span> <span class="va">self</span>.label_columns],</span>
+<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a>          axis<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb4-48"><a href="#cb4-48" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" tabindex="-1"></a>    <span class="co"># Slicing doesn't preserve static shape information, so set the shapes</span></span>
+<span id="cb4-50"><a href="#cb4-50" tabindex="-1"></a>    <span class="co"># manually. This way the `tf.data.Datasets` are easier to inspect.</span></span>
+<span id="cb4-51"><a href="#cb4-51" tabindex="-1"></a>    inputs.set_shape([<span class="va">None</span>, <span class="va">self</span>.input_width, <span class="va">None</span>])</span>
+<span id="cb4-52"><a href="#cb4-52" tabindex="-1"></a>    labels.set_shape([<span class="va">None</span>, <span class="va">self</span>.label_width, <span class="va">None</span>])</span>
+<span id="cb4-53"><a href="#cb4-53" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" tabindex="-1"></a>    <span class="cf">return</span> inputs, labels</span>
+<span id="cb4-55"><a href="#cb4-55" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" tabindex="-1"></a>  </span>
+<span id="cb4-57"><a href="#cb4-57" tabindex="-1"></a>  <span class="kw">def</span> plot(<span class="va">self</span>, model<span class="op">=</span><span class="va">None</span>, plot_col<span class="op">=</span><span class="st">'INTERVAL_READ'</span>, max_subplots<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb4-58"><a href="#cb4-58" tabindex="-1"></a>    inputs, labels <span class="op">=</span> <span class="va">self</span>.example</span>
+<span id="cb4-59"><a href="#cb4-59" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb4-60"><a href="#cb4-60" tabindex="-1"></a>    plot_col_index <span class="op">=</span> <span class="va">self</span>.column_indices[plot_col]</span>
+<span id="cb4-61"><a href="#cb4-61" tabindex="-1"></a>    max_n <span class="op">=</span> <span class="bu">min</span>(max_subplots, <span class="bu">len</span>(inputs))</span>
+<span id="cb4-62"><a href="#cb4-62" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(max_n):</span>
+<span id="cb4-63"><a href="#cb4-63" tabindex="-1"></a>      plt.subplot(max_n, <span class="dv">1</span>, n<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb4-64"><a href="#cb4-64" tabindex="-1"></a>      plt.ylabel(<span class="ss">f'</span><span class="sc">{</span>plot_col<span class="sc">}</span><span class="ss"> [normed]'</span>)</span>
+<span id="cb4-65"><a href="#cb4-65" tabindex="-1"></a>      plt.plot(<span class="va">self</span>.input_indices, inputs[n, :, plot_col_index],</span>
+<span id="cb4-66"><a href="#cb4-66" tabindex="-1"></a>               label<span class="op">=</span><span class="st">'Inputs'</span>, marker<span class="op">=</span><span class="st">'.'</span>, zorder<span class="op">=-</span><span class="dv">10</span>)</span>
+<span id="cb4-67"><a href="#cb4-67" tabindex="-1"></a></span>
+<span id="cb4-68"><a href="#cb4-68" tabindex="-1"></a>      <span class="cf">if</span> <span class="va">self</span>.label_columns:</span>
+<span id="cb4-69"><a href="#cb4-69" tabindex="-1"></a>        label_col_index <span class="op">=</span> <span class="va">self</span>.label_columns_indices.get(plot_col, <span class="va">None</span>)</span>
+<span id="cb4-70"><a href="#cb4-70" tabindex="-1"></a>      <span class="cf">else</span>:</span>
+<span id="cb4-71"><a href="#cb4-71" tabindex="-1"></a>        label_col_index <span class="op">=</span> plot_col_index</span>
+<span id="cb4-72"><a href="#cb4-72" tabindex="-1"></a></span>
+<span id="cb4-73"><a href="#cb4-73" tabindex="-1"></a>      <span class="cf">if</span> label_col_index <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb4-74"><a href="#cb4-74" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb4-75"><a href="#cb4-75" tabindex="-1"></a></span>
+<span id="cb4-76"><a href="#cb4-76" tabindex="-1"></a>      plt.scatter(<span class="va">self</span>.label_indices, labels[n, :, label_col_index],</span>
+<span id="cb4-77"><a href="#cb4-77" tabindex="-1"></a>                  edgecolors<span class="op">=</span><span class="st">'k'</span>, label<span class="op">=</span><span class="st">'Labels'</span>, c<span class="op">=</span><span class="st">'#2ca02c'</span>, s<span class="op">=</span><span class="dv">64</span>)</span>
+<span id="cb4-78"><a href="#cb4-78" tabindex="-1"></a>      <span class="cf">if</span> model <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb4-79"><a href="#cb4-79" tabindex="-1"></a>        predictions <span class="op">=</span> model(inputs)</span>
+<span id="cb4-80"><a href="#cb4-80" tabindex="-1"></a>        plt.scatter(<span class="va">self</span>.label_indices, predictions[n, :, label_col_index],</span>
+<span id="cb4-81"><a href="#cb4-81" tabindex="-1"></a>                    marker<span class="op">=</span><span class="st">'X'</span>, edgecolors<span class="op">=</span><span class="st">'k'</span>, label<span class="op">=</span><span class="st">'Predictions'</span>,</span>
+<span id="cb4-82"><a href="#cb4-82" tabindex="-1"></a>                    c<span class="op">=</span><span class="st">'#ff7f0e'</span>, s<span class="op">=</span><span class="dv">64</span>)</span>
+<span id="cb4-83"><a href="#cb4-83" tabindex="-1"></a></span>
+<span id="cb4-84"><a href="#cb4-84" tabindex="-1"></a>      <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb4-85"><a href="#cb4-85" tabindex="-1"></a>        plt.legend()</span>
+<span id="cb4-86"><a href="#cb4-86" tabindex="-1"></a></span>
+<span id="cb4-87"><a href="#cb4-87" tabindex="-1"></a>    plt.xlabel(<span class="st">'Time [h]'</span>)</span>
+<span id="cb4-88"><a href="#cb4-88" tabindex="-1"></a>    </span>
+<span id="cb4-89"><a href="#cb4-89" tabindex="-1"></a></span>
+<span id="cb4-90"><a href="#cb4-90" tabindex="-1"></a>  <span class="kw">def</span> make_dataset(<span class="va">self</span>, data):</span>
+<span id="cb4-91"><a href="#cb4-91" tabindex="-1"></a>    data <span class="op">=</span> np.array(data, dtype<span class="op">=</span>np.float32)</span>
+<span id="cb4-92"><a href="#cb4-92" tabindex="-1"></a>    ds <span class="op">=</span> tf.keras.utils.timeseries_dataset_from_array(</span>
+<span id="cb4-93"><a href="#cb4-93" tabindex="-1"></a>        data<span class="op">=</span>data,</span>
+<span id="cb4-94"><a href="#cb4-94" tabindex="-1"></a>        targets<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb4-95"><a href="#cb4-95" tabindex="-1"></a>        sequence_length<span class="op">=</span><span class="va">self</span>.total_window_size,</span>
+<span id="cb4-96"><a href="#cb4-96" tabindex="-1"></a>        sequence_stride<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb4-97"><a href="#cb4-97" tabindex="-1"></a>        shuffle<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb4-98"><a href="#cb4-98" tabindex="-1"></a>        batch_size<span class="op">=</span><span class="dv">32</span>)</span>
+<span id="cb4-99"><a href="#cb4-99" tabindex="-1"></a></span>
+<span id="cb4-100"><a href="#cb4-100" tabindex="-1"></a>    ds <span class="op">=</span> ds.<span class="bu">map</span>(<span class="va">self</span>.split_window)</span>
+<span id="cb4-101"><a href="#cb4-101" tabindex="-1"></a></span>
+<span id="cb4-102"><a href="#cb4-102" tabindex="-1"></a>    <span class="cf">return</span> ds</span>
+<span id="cb4-103"><a href="#cb4-103" tabindex="-1"></a></span>
+<span id="cb4-104"><a href="#cb4-104" tabindex="-1"></a></span>
+<span id="cb4-105"><a href="#cb4-105" tabindex="-1"></a>  <span class="at">@property</span></span>
+<span id="cb4-106"><a href="#cb4-106" tabindex="-1"></a>  <span class="kw">def</span> train(<span class="va">self</span>):</span>
+<span id="cb4-107"><a href="#cb4-107" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.make_dataset(<span class="va">self</span>.train_df)</span>
+<span id="cb4-108"><a href="#cb4-108" tabindex="-1"></a></span>
+<span id="cb4-109"><a href="#cb4-109" tabindex="-1"></a>  <span class="at">@property</span></span>
+<span id="cb4-110"><a href="#cb4-110" tabindex="-1"></a>  <span class="kw">def</span> val(<span class="va">self</span>):</span>
+<span id="cb4-111"><a href="#cb4-111" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.make_dataset(<span class="va">self</span>.val_df)</span>
+<span id="cb4-112"><a href="#cb4-112" tabindex="-1"></a></span>
+<span id="cb4-113"><a href="#cb4-113" tabindex="-1"></a>  <span class="at">@property</span></span>
+<span id="cb4-114"><a href="#cb4-114" tabindex="-1"></a>  <span class="kw">def</span> test(<span class="va">self</span>):</span>
+<span id="cb4-115"><a href="#cb4-115" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.make_dataset(<span class="va">self</span>.test_df)</span>
+<span id="cb4-116"><a href="#cb4-116" tabindex="-1"></a></span>
+<span id="cb4-117"><a href="#cb4-117" tabindex="-1"></a>  <span class="at">@property</span></span>
+<span id="cb4-118"><a href="#cb4-118" tabindex="-1"></a>  <span class="kw">def</span> example(<span class="va">self</span>):</span>
+<span id="cb4-119"><a href="#cb4-119" tabindex="-1"></a>    <span class="co">"""Get and cache an example batch of `inputs, labels` for plotting."""</span></span>
+<span id="cb4-120"><a href="#cb4-120" tabindex="-1"></a>    result <span class="op">=</span> <span class="bu">getattr</span>(<span class="va">self</span>, <span class="st">'_example'</span>, <span class="va">None</span>)</span>
+<span id="cb4-121"><a href="#cb4-121" tabindex="-1"></a>    <span class="cf">if</span> result <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb4-122"><a href="#cb4-122" tabindex="-1"></a>      <span class="co"># No example batch was found, so get one from the `.train` dataset</span></span>
+<span id="cb4-123"><a href="#cb4-123" tabindex="-1"></a>      result <span class="op">=</span> <span class="bu">next</span>(<span class="bu">iter</span>(<span class="va">self</span>.train))</span>
+<span id="cb4-124"><a href="#cb4-124" tabindex="-1"></a>      <span class="co"># And cache it for next time</span></span>
+<span id="cb4-125"><a href="#cb4-125" tabindex="-1"></a>      <span class="va">self</span>._example <span class="op">=</span> result</span>
+<span id="cb4-126"><a href="#cb4-126" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre>
 </div>
 <p>It is recommended to execute the script or code block that contains
 the class definition before proceeding, to make sure there are no
 spacing or syntax errors.</p>
-<div id="callout1" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Copying and pasting is generally discouraged, so an alternative to
 copying and pasting the class definition above is to save the class to a
@@ -585,17 +584,17 @@ INTERVAL_READ.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># forecast one step at a time based on previous step</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># single prediction (label width), 1 hour into future (shift) </span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># with 1h history (input width)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># forecasting "INTERVAL_READ"</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>single_step_window <span class="op">=</span> WindowGenerator(</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    input_width<span class="op">=</span><span class="dv">1</span>, label_width<span class="op">=</span><span class="dv">1</span>, shift<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    label_columns<span class="op">=</span>[<span class="st">'INTERVAL_READ'</span>])</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(single_step_window)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># forecast one step at a time based on previous step</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co"># single prediction (label width), 1 hour into future (shift) </span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co"># with 1h history (input width)</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co"># forecasting "INTERVAL_READ"</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>single_step_window <span class="op">=</span> WindowGenerator(</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    input_width<span class="op">=</span><span class="dv">1</span>, label_width<span class="op">=</span><span class="dv">1</span>, shift<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>    label_columns<span class="op">=</span>[<span class="st">'INTERVAL_READ'</span>])</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="bu">print</span>(single_step_window)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -613,11 +612,11 @@ and 1 feature.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of batches:"</span>, <span class="bu">len</span>(single_step_window.train))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> example_inputs, example_labels <span class="kw">in</span> single_step_window.train.take(<span class="dv">1</span>):</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f'Inputs shape (batch, time, features): </span><span class="sc">{</span>example_inputs<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f'Labels shape (batch, time, features): </span><span class="sc">{</span>example_labels<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of batches:"</span>, <span class="bu">len</span>(single_step_window.train))</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="cf">for</span> example_inputs, example_labels <span class="kw">in</span> single_step_window.train.take(<span class="dv">1</span>):</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f'Inputs shape (batch, time, features): </span><span class="sc">{</span>example_inputs<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f'Labels shape (batch, time, features): </span><span class="sc">{</span>example_labels<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -636,11 +635,11 @@ model using the wide window.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>wide_window <span class="op">=</span> WindowGenerator(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    input_width<span class="op">=</span><span class="dv">24</span>, label_width<span class="op">=</span><span class="dv">24</span>, shift<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    label_columns<span class="op">=</span>[<span class="st">'INTERVAL_READ'</span>])</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wide_window)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>wide_window <span class="op">=</span> WindowGenerator(</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>    input_width<span class="op">=</span><span class="dv">24</span>, label_width<span class="op">=</span><span class="dv">24</span>, shift<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>    label_columns<span class="op">=</span>[<span class="st">'INTERVAL_READ'</span>])</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="bu">print</span>(wide_window)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -661,16 +660,16 @@ baseline forecast, only this time we define the model as a subclass of a
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Baseline(tf.keras.Model):</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, label_index<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.label_index <span class="op">=</span> label_index</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> call(<span class="va">self</span>, inputs):</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="va">self</span>.label_index <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> inputs</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> inputs[:, :, <span class="va">self</span>.label_index]</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result[:, :, tf.newaxis]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="kw">class</span> Baseline(tf.keras.Model):</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, label_index<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>    <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>    <span class="va">self</span>.label_index <span class="op">=</span> label_index</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="kw">def</span> call(<span class="va">self</span>, inputs):</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>    <span class="cf">if</span> <span class="va">self</span>.label_index <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>      <span class="cf">return</span> inputs</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>    result <span class="op">=</span> inputs[:, :, <span class="va">self</span>.label_index]</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>    <span class="cf">return</span> result[:, :, tf.newaxis]</span></code></pre>
 </div>
 <p>Next, we create an instance of the <code>Baseline</code> class and
 configure it for training using the <code>compile()</code> method. We
@@ -691,19 +690,19 @@ dataframes.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>baseline <span class="op">=</span> Baseline(label_index<span class="op">=</span>column_indices[<span class="st">'INTERVAL_READ'</span>])</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>baseline.<span class="bu">compile</span>(loss<span class="op">=</span>tf.keras.losses.MeanSquaredError(),</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                 metrics<span class="op">=</span>[tf.keras.metrics.MeanAbsoluteError()])</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>val_performance <span class="op">=</span> {}</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>performance <span class="op">=</span> {}</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>val_performance[<span class="st">'Baseline'</span>] <span class="op">=</span> baseline.evaluate(single_step_window.val)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>performance[<span class="st">'Baseline'</span>] <span class="op">=</span> baseline.evaluate(single_step_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Basline performance against validation data:"</span>, val_performance[<span class="st">"Baseline"</span>])</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Basline performance against test data:"</span>, performance[<span class="st">"Baseline"</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>baseline <span class="op">=</span> Baseline(label_index<span class="op">=</span>column_indices[<span class="st">'INTERVAL_READ'</span>])</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>baseline.<span class="bu">compile</span>(loss<span class="op">=</span>tf.keras.losses.MeanSquaredError(),</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>                 metrics<span class="op">=</span>[tf.keras.metrics.MeanAbsoluteError()])</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>val_performance <span class="op">=</span> {}</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>performance <span class="op">=</span> {}</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>val_performance[<span class="st">'Baseline'</span>] <span class="op">=</span> baseline.evaluate(single_step_window.val)</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>performance[<span class="st">'Baseline'</span>] <span class="op">=</span> baseline.evaluate(single_step_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Basline performance against validation data:"</span>, val_performance[<span class="st">"Baseline"</span>])</span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Basline performance against test data:"</span>, performance[<span class="st">"Baseline"</span>])</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -721,7 +720,7 @@ slices within each batch (32):</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5256</span> <span class="op">/</span> <span class="dv">32</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="dv">5256</span> <span class="op">/</span> <span class="dv">32</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -742,18 +741,21 @@ timesteps.</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>single_step_window.plot(baseline)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>single_step_window.plot(baseline)</span></code></pre>
 </div>
-<figure><img src=".././fig/ep4_fig1.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of baseline forecast using a single step
-window.</figcaption></figure><p>Instead, we can plot the model’s predictions using the wide window.
+<figure><img src=".././fig/ep4_fig1.png" alt="Plot of baseline forecast using a single step window." class="figure mx-auto d-block"><div class="figcaption">Plot of baseline forecast using a single step
+window.</div>
+</figure><p>Instead, we can plot the model’s predictions using the wide window.
 Note that the model is not being re-evaluated. We are instead using the
 wide window to request and plot a larger number of predictions.</p>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>wide_window.plot(baseline)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>wide_window.plot(baseline)</span></code></pre>
 </div>
-<figure><img src=".././fig/ep4_fig2.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of baseline forecast using a wide window.</figcaption></figure><p>We are now ready to train models. With the addition of creating
+<figure><img src=".././fig/ep4_fig2.png" alt="Plot of baseline forecast using a wide window." class="figure mx-auto d-block"><div class="figcaption">Plot of baseline forecast using a wide
+window.</div>
+</figure><p>We are now ready to train models. With the addition of creating
 layered neural networks using the <code>keras</code> API, all of the
 models below will be fitted and evaluated using a workflow similar to
 that which we used for the baseline model, above. Rather than repeat the
@@ -782,21 +784,21 @@ that the MAX_EPOCHS is being manually set in the code block below.</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>MAX_EPOCHS <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compile_and_fit(model, window, patience<span class="op">=</span><span class="dv">2</span>):</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  early_stopping <span class="op">=</span> tf.keras.callbacks.EarlyStopping(monitor<span class="op">=</span><span class="st">'val_loss'</span>,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                                                    patience<span class="op">=</span>patience,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                                                    mode<span class="op">=</span><span class="st">'min'</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  model.<span class="bu">compile</span>(loss<span class="op">=</span>tf.keras.losses.MeanSquaredError(),</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                optimizer<span class="op">=</span>tf.keras.optimizers.Adam(),</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                metrics<span class="op">=</span>[tf.keras.metrics.MeanAbsoluteError()])</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  history <span class="op">=</span> model.fit(window.train, epochs<span class="op">=</span>MAX_EPOCHS,</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>                      validation_data<span class="op">=</span>window.val,</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>                      callbacks<span class="op">=</span>[early_stopping])</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> history</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>MAX_EPOCHS <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="kw">def</span> compile_and_fit(model, window, patience<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>  early_stopping <span class="op">=</span> tf.keras.callbacks.EarlyStopping(monitor<span class="op">=</span><span class="st">'val_loss'</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>                                                    patience<span class="op">=</span>patience,</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>                                                    mode<span class="op">=</span><span class="st">'min'</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>  model.<span class="bu">compile</span>(loss<span class="op">=</span>tf.keras.losses.MeanSquaredError(),</span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>                optimizer<span class="op">=</span>tf.keras.optimizers.Adam(),</span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>                metrics<span class="op">=</span>[tf.keras.metrics.MeanAbsoluteError()])</span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a>  history <span class="op">=</span> model.fit(window.train, epochs<span class="op">=</span>MAX_EPOCHS,</span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a>                      validation_data<span class="op">=</span>window.val,</span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a>                      callbacks<span class="op">=</span>[early_stopping])</span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a>  <span class="cf">return</span> history</span></code></pre>
 </div>
 </section><section id="linear-model"><h2 class="section-heading">Linear model<a class="anchor" aria-label="anchor" href="#linear-model"></a>
 </h2>
@@ -813,12 +815,12 @@ is not defined. We will see examples of activation functions below.</p>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>linear <span class="op">=</span> tf.keras.Sequential([</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Input shape:'</span>, single_step_window.example[<span class="dv">0</span>].shape)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Output shape:'</span>, linear(single_step_window.example[<span class="dv">0</span>]).shape)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>linear <span class="op">=</span> tf.keras.Sequential([</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>])</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Input shape:'</span>, single_step_window.example[<span class="dv">0</span>].shape)</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Output shape:'</span>, linear(single_step_window.example[<span class="dv">0</span>]).shape)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -837,13 +839,13 @@ into 32 batches, where each batch consists of 1 timestep and one feature
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(linear, single_step_window)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>val_performance[<span class="st">'Linear'</span>] <span class="op">=</span> linear.evaluate(single_step_window.val)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>performance[<span class="st">'Linear'</span>] <span class="op">=</span> linear.evaluate(single_step_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear performance against validation data:"</span>, val_performance[<span class="st">"Linear"</span>])</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear performance against test data:"</span>, performance[<span class="st">"Linear"</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(linear, single_step_window)</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>val_performance[<span class="st">'Linear'</span>] <span class="op">=</span> linear.evaluate(single_step_window.val)</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>performance[<span class="st">'Linear'</span>] <span class="op">=</span> linear.evaluate(single_step_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear performance against validation data:"</span>, val_performance[<span class="st">"Linear"</span>])</span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear performance against test data:"</span>, performance[<span class="st">"Linear"</span>])</span></code></pre>
 </div>
 <p>The output is long, and may vary between executions. In the case
 below, we can see that the model was fitted against the entire training
@@ -890,10 +892,11 @@ slices of 25 timesteps each.</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>wide_window.plot(linear)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>wide_window.plot(linear)</span></code></pre>
 </div>
-<figure><img src=".././fig/ep4_fig3.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of example slices of linear forecast using a
-wide window.</figcaption></figure></section><section id="dense-neural-network"><h2 class="section-heading">Dense neural network<a class="anchor" aria-label="anchor" href="#dense-neural-network"></a>
+<figure><img src=".././fig/ep4_fig3.png" alt="Plot of example slices of linear forecast using a wide window." class="figure mx-auto d-block"><div class="figcaption">Plot of example slices of linear forecast using
+a wide window.</div>
+</figure></section><section id="dense-neural-network"><h2 class="section-heading">Dense neural network<a class="anchor" aria-label="anchor" href="#dense-neural-network"></a>
 </h2>
 <hr class="half-width"><p>We can build more complex models by adding layers to the stack. The
 following defines a dense neural network that consists of three layers.
@@ -902,20 +905,20 @@ All three are <code>Dense</code> layers, but the first two use an
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dense <span class="op">=</span> tf.keras.Sequential([</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">64</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">64</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the model as above</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(dense, single_step_window)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>val_performance[<span class="st">'Dense'</span>] <span class="op">=</span> dense.evaluate(single_step_window.val)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>performance[<span class="st">'Dense'</span>] <span class="op">=</span> dense.evaluate(single_step_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DNN performance against validation data:"</span>, val_performance[<span class="st">"Dense"</span>])</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DNN performance against test data:"</span>, performance[<span class="st">"Dense"</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>dense <span class="op">=</span> tf.keras.Sequential([</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">64</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">64</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>])</span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a><span class="co"># Run the model as above</span></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(dense, single_step_window)</span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a>val_performance[<span class="st">'Dense'</span>] <span class="op">=</span> dense.evaluate(single_step_window.val)</span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a>performance[<span class="st">'Dense'</span>] <span class="op">=</span> dense.evaluate(single_step_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DNN performance against validation data:"</span>, val_performance[<span class="st">"Dense"</span>])</span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DNN performance against test data:"</span>, performance[<span class="st">"Dense"</span>])</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -943,14 +946,14 @@ future (shift), using three hours of history (input_width.)</p>
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>CONV_WIDTH <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>conv_window <span class="op">=</span> WindowGenerator(</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    input_width<span class="op">=</span>CONV_WIDTH,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    label_width<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    shift<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    label_columns<span class="op">=</span>[<span class="st">'INTERVAL_READ'</span>])</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(conv_window)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>CONV_WIDTH <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>conv_window <span class="op">=</span> WindowGenerator(</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>    input_width<span class="op">=</span>CONV_WIDTH,</span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>    label_width<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>    shift<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>    label_columns<span class="op">=</span>[<span class="st">'INTERVAL_READ'</span>])</span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="bu">print</span>(conv_window)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -968,29 +971,30 @@ the actual value that a forecast is measured against.</p>
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>conv_window.plot()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>conv_window.plot()</span></code></pre>
 </div>
-<figure><img src=".././fig/ep4_fig4.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of convolution window with three input and one
-output timesteps.</figcaption></figure><p>Now we can modify the above dense model to flatten and reshape the
+<figure><img src=".././fig/ep4_fig4.png" alt="Plot of convolution window with three input and one output timesteps." class="figure mx-auto d-block"><div class="figcaption">Plot of convolution window with three input and
+one output timesteps.</div>
+</figure><p>Now we can modify the above dense model to flatten and reshape the
 data to account for the multiple inputs.</p>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>multi_step_dense <span class="op">=</span> tf.keras.Sequential([</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Flatten(),</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">32</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">32</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">1</span>),</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Reshape([<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]),</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(multi_step_dense, conv_window)</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>val_performance[<span class="st">'Multi step dense'</span>] <span class="op">=</span> multi_step_dense.evaluate(conv_window.val)</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>performance[<span class="st">'Multi step dense'</span>] <span class="op">=</span> multi_step_dense.evaluate(conv_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"MSD performance against validation data:"</span>, val_performance[<span class="st">"Multi step dense"</span>])</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"MSD performance against test data:"</span>, performance[<span class="st">"Multi step dense"</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>multi_step_dense <span class="op">=</span> tf.keras.Sequential([</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>    tf.keras.layers.Flatten(),</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">32</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">32</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a>    tf.keras.layers.Reshape([<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]),</span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>])</span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(multi_step_dense, conv_window)</span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a>val_performance[<span class="st">'Multi step dense'</span>] <span class="op">=</span> multi_step_dense.evaluate(conv_window.val)</span>
+<span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a>performance[<span class="st">'Multi step dense'</span>] <span class="op">=</span> multi_step_dense.evaluate(conv_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb29-13"><a href="#cb29-13" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"MSD performance against validation data:"</span>, val_performance[<span class="st">"Multi step dense"</span>])</span>
+<span id="cb29-15"><a href="#cb29-15" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"MSD performance against test data:"</span>, performance[<span class="st">"Multi step dense"</span>])</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1012,22 +1016,22 @@ to flatten and reshape the data.</p>
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>conv_model <span class="op">=</span> tf.keras.Sequential([</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Conv1D(filters<span class="op">=</span><span class="dv">32</span>,</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                           kernel_size<span class="op">=</span>(CONV_WIDTH,),</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                           activation<span class="op">=</span><span class="st">'relu'</span>),</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">32</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">1</span>),</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(conv_model, conv_window)</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>val_performance[<span class="st">'Conv'</span>] <span class="op">=</span> conv_model.evaluate(conv_window.val)</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>performance[<span class="st">'Conv'</span>] <span class="op">=</span> conv_model.evaluate(conv_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CNN performance against validation data:"</span>, val_performance[<span class="st">"Conv"</span>])</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CNN performance against test data:"</span>, performance[<span class="st">"Conv"</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>conv_model <span class="op">=</span> tf.keras.Sequential([</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>    tf.keras.layers.Conv1D(filters<span class="op">=</span><span class="dv">32</span>,</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>                           kernel_size<span class="op">=</span>(CONV_WIDTH,),</span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>                           activation<span class="op">=</span><span class="st">'relu'</span>),</span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">32</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a>])</span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(conv_model, conv_window)</span>
+<span id="cb31-11"><a href="#cb31-11" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" tabindex="-1"></a>val_performance[<span class="st">'Conv'</span>] <span class="op">=</span> conv_model.evaluate(conv_window.val)</span>
+<span id="cb31-13"><a href="#cb31-13" tabindex="-1"></a>performance[<span class="st">'Conv'</span>] <span class="op">=</span> conv_model.evaluate(conv_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" tabindex="-1"></a></span>
+<span id="cb31-15"><a href="#cb31-15" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CNN performance against validation data:"</span>, val_performance[<span class="st">"Conv"</span>])</span>
+<span id="cb31-16"><a href="#cb31-16" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CNN performance against test data:"</span>, performance[<span class="st">"Conv"</span>])</span></code></pre>
 </div>
 <pre><code>Epoch 7/20
 575/575 [==============================] - 1s 2ms/step - loss: 0.4744 - mean_absolute_error: 0.3414 - val_loss: 0.3887 - val_mean_absolute_error: 0.3100
@@ -1039,15 +1043,15 @@ convolution models.</p>
 <div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>LABEL_WIDTH <span class="op">=</span> <span class="dv">24</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>INPUT_WIDTH <span class="op">=</span> LABEL_WIDTH <span class="op">+</span> (CONV_WIDTH <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>wide_conv_window <span class="op">=</span> WindowGenerator(</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    input_width<span class="op">=</span>INPUT_WIDTH,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    label_width<span class="op">=</span>LABEL_WIDTH,</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    shift<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    label_columns<span class="op">=</span>[<span class="st">'INTERVAL_READ'</span>])</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wide_conv_window)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>LABEL_WIDTH <span class="op">=</span> <span class="dv">24</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>INPUT_WIDTH <span class="op">=</span> LABEL_WIDTH <span class="op">+</span> (CONV_WIDTH <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>wide_conv_window <span class="op">=</span> WindowGenerator(</span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>    input_width<span class="op">=</span>INPUT_WIDTH,</span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>    label_width<span class="op">=</span>LABEL_WIDTH,</span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>    shift<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>    label_columns<span class="op">=</span>[<span class="st">'INTERVAL_READ'</span>])</span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a><span class="bu">print</span>(wide_conv_window)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1062,10 +1066,11 @@ Label column name(s): ['INTERVAL_READ']</code></pre>
 <div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>wide_conv_window.plot(conv_model)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>wide_conv_window.plot(conv_model)</span></code></pre>
 </div>
-<figure><img src=".././fig/ep4_fig5.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of convolution neural network forcast using a
-wide window.</figcaption></figure></section><section id="recurrent-neural-network"><h2 class="section-heading">Recurrent neural network<a class="anchor" aria-label="anchor" href="#recurrent-neural-network"></a>
+<figure><img src=".././fig/ep4_fig5.png" alt="Plot of convolution neural network forcast using a wide window." class="figure mx-auto d-block"><div class="figcaption">Plot of convolution neural network forcast using
+a wide window.</div>
+</figure></section><section id="recurrent-neural-network"><h2 class="section-heading">Recurrent neural network<a class="anchor" aria-label="anchor" href="#recurrent-neural-network"></a>
 </h2>
 <hr class="half-width"><p>Alternatively, a recurrent neural network is a model that processes
 time-series in single steps but maintains an internal state that is
@@ -1077,19 +1082,19 @@ the single step data window.</p>
 <div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>lstm_model <span class="op">=</span> tf.keras.models.Sequential([</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.LSTM(<span class="dv">32</span>, return_sequences<span class="op">=</span><span class="va">True</span>),</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(lstm_model, wide_window)</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>val_performance[<span class="st">'LSTM'</span>] <span class="op">=</span> lstm_model.evaluate(wide_window.val)</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>performance[<span class="st">'LSTM'</span>] <span class="op">=</span> lstm_model.evaluate(wide_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LSTM performance against validation data:"</span>, val_performance[<span class="st">"LSTM"</span>])</span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LSTM performance against test data:"</span>, performance[<span class="st">"LSTM"</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>lstm_model <span class="op">=</span> tf.keras.models.Sequential([</span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>    tf.keras.layers.LSTM(<span class="dv">32</span>, return_sequences<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>    tf.keras.layers.Dense(units<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>])</span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>history <span class="op">=</span> compile_and_fit(lstm_model, wide_window)</span>
+<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a>val_performance[<span class="st">'LSTM'</span>] <span class="op">=</span> lstm_model.evaluate(wide_window.val)</span>
+<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a>performance[<span class="st">'LSTM'</span>] <span class="op">=</span> lstm_model.evaluate(wide_window.test, verbose<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LSTM performance against validation data:"</span>, val_performance[<span class="st">"LSTM"</span>])</span>
+<span id="cb36-13"><a href="#cb36-13" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"LSTM performance against test data:"</span>, performance[<span class="st">"LSTM"</span>])</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1104,10 +1109,11 @@ LSTM performance against test data: [0.4038854241371155, 0.3253307044506073]</co
 <div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>wide_window.plot(lstm_model)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>wide_window.plot(lstm_model)</span></code></pre>
 </div>
-<figure><img src=".././fig/ep4_fig6.png" alt="" class="figure mx-auto d-block"><figcaption>Plot of LSTM neural network forcast using a wide
-window.</figcaption></figure></section><section id="evalute-the-models"><h2 class="section-heading">Evalute the models<a class="anchor" aria-label="anchor" href="#evalute-the-models"></a>
+<figure><img src=".././fig/ep4_fig6.png" alt="Plot of LSTM neural network forcast using a wide window." class="figure mx-auto d-block"><div class="figcaption">Plot of LSTM neural network forcast using a wide
+window.</div>
+</figure></section><section id="evalute-the-models"><h2 class="section-heading">Evalute the models<a class="anchor" aria-label="anchor" href="#evalute-the-models"></a>
 </h2>
 <hr class="half-width"><p>Recall that we are using the mean absolute error as the performance
 metric for evaluating predictions against actual values in the test
@@ -1117,8 +1123,8 @@ dictionary.</p>
 <div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> performance.items():</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>name<span class="sc">:12s}</span><span class="ss">: </span><span class="sc">{</span>value[<span class="dv">1</span>]<span class="sc">:0.4f}</span><span class="ss">'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="cf">for</span> name, value <span class="kw">in</span> performance.items():</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>name<span class="sc">:12s}</span><span class="ss">: </span><span class="sc">{</span>value[<span class="dv">1</span>]<span class="sc">:0.4f}</span><span class="ss">'</span>)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1140,22 +1146,23 @@ both the validation and test dataframes.</p>
 <div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="bu">len</span>(performance))</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>width <span class="op">=</span> <span class="fl">0.3</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>metric_name <span class="op">=</span> <span class="st">'mean_absolute_error'</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>metric_index <span class="op">=</span> lstm_model.metrics_names.index(<span class="st">'mean_absolute_error'</span>)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>val_mae <span class="op">=</span> [v[metric_index] <span class="cf">for</span> v <span class="kw">in</span> val_performance.values()]</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>test_mae <span class="op">=</span> [v[metric_index] <span class="cf">for</span> v <span class="kw">in</span> performance.values()]</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'mean_absolute_error [INTERVAL_READ, normalized]'</span>)</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>plt.bar(x <span class="op">-</span> <span class="fl">0.17</span>, val_mae, width, label<span class="op">=</span><span class="st">'Validation'</span>)</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>plt.bar(x <span class="op">+</span> <span class="fl">0.17</span>, test_mae, width, label<span class="op">=</span><span class="st">'Test'</span>)</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>plt.xticks(ticks<span class="op">=</span>x, labels<span class="op">=</span>performance.keys(),</span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>           rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.legend()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="bu">len</span>(performance))</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>width <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>metric_name <span class="op">=</span> <span class="st">'mean_absolute_error'</span></span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>metric_index <span class="op">=</span> lstm_model.metrics_names.index(<span class="st">'mean_absolute_error'</span>)</span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>val_mae <span class="op">=</span> [v[metric_index] <span class="cf">for</span> v <span class="kw">in</span> val_performance.values()]</span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a>test_mae <span class="op">=</span> [v[metric_index] <span class="cf">for</span> v <span class="kw">in</span> performance.values()]</span>
+<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a>plt.ylabel(<span class="st">'mean_absolute_error [INTERVAL_READ, normalized]'</span>)</span>
+<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a>plt.bar(x <span class="op">-</span> <span class="fl">0.17</span>, val_mae, width, label<span class="op">=</span><span class="st">'Validation'</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a>plt.bar(x <span class="op">+</span> <span class="fl">0.17</span>, test_mae, width, label<span class="op">=</span><span class="st">'Test'</span>)</span>
+<span id="cb41-11"><a href="#cb41-11" tabindex="-1"></a>plt.xticks(ticks<span class="op">=</span>x, labels<span class="op">=</span>performance.keys(),</span>
+<span id="cb41-12"><a href="#cb41-12" tabindex="-1"></a>           rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb41-13"><a href="#cb41-13" tabindex="-1"></a>_ <span class="op">=</span> plt.legend()</span></code></pre>
 </div>
-<figure><img src=".././fig/ep4_fig7.png" alt="" class="figure mx-auto d-block"><figcaption>Plot comparing MAE on validation and test data for
-all models.</figcaption></figure><div id="keypoints1" class="callout keypoints">
+<figure><img src=".././fig/ep4_fig7.png" alt="Plot comparing MAE on validation and test data for all models." class="figure mx-auto d-block"><div class="figcaption">Plot comparing MAE on validation and test data
+for all models.</div>
+</figure><div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -1231,7 +1238,7 @@ any links that you are not going to use.
   "identifier": "https://carpentries-incubator.github.io/python-classifying-power-consumption/instructor/04-single-step-forecasts.html",
   "dateCreated": "2023-09-01",
   "dateModified": "2023-09-01",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-05"
 }
 
   </script><script>
