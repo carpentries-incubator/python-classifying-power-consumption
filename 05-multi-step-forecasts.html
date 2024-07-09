@@ -27,7 +27,7 @@
             <span class="visually-hidden">This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.</span>
           </abbr>
         </span>
-        
+
       </div>
     </div>
     <div class="selector-container">
@@ -56,7 +56,7 @@
             </li>
           </ul></li>
       </div>
-      
+
       <div class="dropdown" id="instructor-dropdown">
         <button class="btn btn-secondary dropdown-toggle bordered-button" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
           <i aria-hidden="true" class="icon" data-feather="eye"></i> Learner View <i data-feather="chevron-down"></i>
@@ -179,7 +179,7 @@
                 </div><!--/div.accordion-flush-->
               </div><!--div.sidenav-view-selector -->
             </div><!--/div.col -->
-      
+
             <hr></div><!--/div.mobile-row -->
 
           <div class="accordion accordion-flush" id="accordionFlush11">
@@ -198,7 +198,7 @@
     <div class="accordion-header" id="flush-heading1">
         <a href="index.html">Summary and Setup</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -207,7 +207,7 @@
     <div class="accordion-header" id="flush-heading2">
         <a href="01-introduction.html">1. Introduction</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -216,7 +216,7 @@
     <div class="accordion-header" id="flush-heading3">
         <a href="02-feature-engineering.html">2. Feature Engineering</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -225,7 +225,7 @@
     <div class="accordion-header" id="flush-heading4">
         <a href="03-data-windows.html">3. Data Windowing and Making Datasets</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -234,7 +234,7 @@
     <div class="accordion-header" id="flush-heading5">
         <a href="04-single-step-forecasts.html">4. Single Step Forecasts</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -248,7 +248,7 @@
         </span>
       </button>
     </div><!--/div.accordion-header-->
-        
+
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#introduction">Introduction</a></li>
@@ -263,7 +263,7 @@
 <li><a href="#evaluate">Evaluate</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -289,16 +289,16 @@
                       <li>
                         <a href="profiles.html">Learner Profiles</a>
                       </li>
-                      
+
                     </ul></div>
                 </div>
               </div>
             </div>
             <hr class="half-width resources"><a href="aio.html">See all in one page</a>
-            
+
 
             <hr class="d-none d-sm-block d-md-none"><div class="d-grid gap-1">
-            
+
             </div>
           </div><!-- /div.accordion -->
         </div><!-- /div.sidebar-inner -->
@@ -326,11 +326,11 @@
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Multi Step Forecasts</h1>
         <p>Last updated on 2023-08-31 |
-        
+
         <a href="https://github.com/carpentries-incubator/python-classifying-power-consumption/edit/main/episodes/05-multi-step-forecasts.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-        
-        
-        
+
+
+
         <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -359,8 +359,8 @@ for forcasting multiple timesteps.</li>
 </div>
 </div>
 </div>
-<section id="introduction"><h2 class="section-heading">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h2>
+<section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+<a class="anchor" aria-label="anchor" href="#introduction"></a></h2>
 <hr class="half-width"><p>In the previous section we developed models for making forecasts one
 timestep into the future. Our data consist of hourly totals of power
 consumption from a single smart meter, and most of the models were
@@ -376,8 +376,8 @@ Specifically, we will forecast a full day’s worth of hourly power
 consumption based on the previous day’s history. In terms of data window
 arguments, both the <em>input_width</em> and the <em>label_width</em>
 will be equal to 24.</p>
-</section><section id="about-the-code"><h2 class="section-heading">About the code<a class="anchor" aria-label="anchor" href="#about-the-code"></a>
-</h2>
+</section><section><h2 class="section-heading" id="about-the-code">About the code<a class="anchor" aria-label="anchor" href="#about-the-code"></a>
+<a class="anchor" aria-label="anchor" href="#about-the-code"></a></h2>
 <hr class="half-width"><p>The code for this and other sections of this lesson is based on
 time-series forecasting examples, tutorials, and other documentation
 available from the <a href="https://github.com/tensorflow/docs/blob/master/README.md" class="external-link">TensorFlow</a>
@@ -388,8 +388,8 @@ GitHub site published using an <a href="https://github.com/tensorflow/docs/blob/
 <p>Google Inc. (2023) <em>TensorFlow Documentation.</em> Retrieved from
 <a href="https://github.com/tensorflow/docs/blob/master/README.md" class="external-link">https://github.com/tensorflow/docs/blob/master/README.md</a>.</p>
 </blockquote>
-</section><section id="set-up-the-environment"><h2 class="section-heading">Set up the environment<a class="anchor" aria-label="anchor" href="#set-up-the-environment"></a>
-</h2>
+</section><section><h2 class="section-heading" id="set-up-the-environment">Set up the environment<a class="anchor" aria-label="anchor" href="#set-up-the-environment"></a>
+<a class="anchor" aria-label="anchor" href="#set-up-the-environment"></a></h2>
 <hr class="half-width"><p>As with the previous section, begin by importing libraries, reading
 data, and defining the <code>WindowGenerator</code> class.</p>
 <div class="codewrapper sourceCode" id="cb1">
@@ -430,8 +430,8 @@ process some additional, numeric columns were dropped.</p>
 <pre class="output" tabindex="0"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 18396 entries, 0 to 18395
 Data columns (total 5 columns):
- #   Column         Non-Null Count  Dtype  
----  ------         --------------  -----  
+ #   Column         Non-Null Count  Dtype
+---  ------         --------------  -----
  0   INTERVAL_READ  18396 non-null  float64
  1   hour           18396 non-null  float64
  2   day_sin        18396 non-null  float64
@@ -444,8 +444,8 @@ None
 &lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 5256 entries, 0 to 5255
 Data columns (total 5 columns):
- #   Column         Non-Null Count  Dtype  
----  ------         --------------  -----  
+ #   Column         Non-Null Count  Dtype
+---  ------         --------------  -----
  0   INTERVAL_READ  5256 non-null   float64
  1   hour           5256 non-null   float64
  2   day_sin        5256 non-null   float64
@@ -458,8 +458,8 @@ None
 &lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 2628 entries, 0 to 2627
 Data columns (total 5 columns):
- #   Column         Non-Null Count  Dtype  
----  ------         --------------  -----  
+ #   Column         Non-Null Count  Dtype
+---  ------         --------------  -----
  0   INTERVAL_READ  2628 non-null   float64
  1   hour           2628 non-null   float64
  2   day_sin        2628 non-null   float64
@@ -602,8 +602,8 @@ None
 <span id="cb4-125"><a href="#cb4-125" tabindex="-1"></a>      <span class="va">self</span>._example <span class="op">=</span> result</span>
 <span id="cb4-126"><a href="#cb4-126" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre>
 </div>
-</section><section id="create-a-multi-step-data-window"><h2 class="section-heading">Create a multi-step data window<a class="anchor" aria-label="anchor" href="#create-a-multi-step-data-window"></a>
-</h2>
+</section><section><h2 class="section-heading" id="create-a-multi-step-data-window">Create a multi-step data window<a class="anchor" aria-label="anchor" href="#create-a-multi-step-data-window"></a>
+<a class="anchor" aria-label="anchor" href="#create-a-multi-step-data-window"></a></h2>
 <hr class="half-width"><p>Create a data window that will forecast 24 timesteps (label_width),
 24 hours into the future (shift), based on 24 hours of history
 (input_width).</p>
@@ -644,8 +644,8 @@ training dataframe.</p>
 </div>
 <figure><img src="./fig/ep5_fig1.png" alt="Plot of multi window input and label widths." class="figure mx-auto d-block"><div class="figcaption">Plot of multi window input and label
 widths.</div>
-</figure></section><section id="create-a-baseline-model"><h2 class="section-heading">Create a baseline model<a class="anchor" aria-label="anchor" href="#create-a-baseline-model"></a>
-</h2>
+</figure></section><section><h2 class="section-heading" id="create-a-baseline-model">Create a baseline model<a class="anchor" aria-label="anchor" href="#create-a-baseline-model"></a>
+<a class="anchor" aria-label="anchor" href="#create-a-baseline-model"></a></h2>
 <hr class="half-width"><p>As we have done in previous lessons and sections of this lesson, we
 will create a <em>naive seasonal</em> baseline forecast that is a
 subclass of the <code>tf.keras.Model</code> class. In this case, the
@@ -735,8 +735,8 @@ that the MAX_EPOCHS is being manually set in the code block below.</p>
 place, we can fit and evaluate models as in the previous section, by
 stacking layers of processes into a machine learning pipeline using the
 <code>keras</code> API.</p>
-</section><section id="multi-step-linear"><h2 class="section-heading">Multi step linear<a class="anchor" aria-label="anchor" href="#multi-step-linear"></a>
-</h2>
+</section><section><h2 class="section-heading" id="multi-step-linear">Multi step linear<a class="anchor" aria-label="anchor" href="#multi-step-linear"></a>
+<a class="anchor" aria-label="anchor" href="#multi-step-linear"></a></h2>
 <hr class="half-width"><p>Compared with the single step linear model, the model for forecasting
 multiple timesteps requires some additional layers in order to flatten
 and reshape the data. In the definition below, the first
@@ -778,8 +778,8 @@ Linear performance against validation data: [0.30350184440612793, 0.280516237020
 Linear performance against test data: [0.339562326669693, 0.28846967220306396]</code></pre>
 </div>
 <figure><img src="./fig/ep5_fig3.png" alt="Plot of a multi step linear model." class="figure mx-auto d-block"><div class="figcaption">Plot of a multi step linear model.</div>
-</figure></section><section id="dense-neural-network"><h2 class="section-heading">Dense neural network<a class="anchor" aria-label="anchor" href="#dense-neural-network"></a>
-</h2>
+</figure></section><section><h2 class="section-heading" id="dense-neural-network">Dense neural network<a class="anchor" aria-label="anchor" href="#dense-neural-network"></a>
+<a class="anchor" aria-label="anchor" href="#dense-neural-network"></a></h2>
 <hr class="half-width"><p>Similar to the definition of the dense model for single step
 forecasts, the definition of the multi-step dense model adds a
 <code>Dense</code> layer to the preceeding linear model pipeline. The
@@ -818,8 +818,8 @@ Dense performance against validation data: [0.2058122605085373, 0.18464779853820
 Dense performance against test data: [0.22725100815296173, 0.19131870567798615]</code></pre>
 </div>
 <figure><img src="./fig/ep5_fig4.png" alt="Plot of a multi step dense neural network." class="figure mx-auto d-block"><div class="figcaption">Plot of a multi step dense neural network.</div>
-</figure></section><section id="convolution-neural-network"><h2 class="section-heading">Convolution neural network<a class="anchor" aria-label="anchor" href="#convolution-neural-network"></a>
-</h2>
+</figure></section><section><h2 class="section-heading" id="convolution-neural-network">Convolution neural network<a class="anchor" aria-label="anchor" href="#convolution-neural-network"></a>
+<a class="anchor" aria-label="anchor" href="#convolution-neural-network"></a></h2>
 <hr class="half-width"><p>For the multi-step convolution neural network model, the first
 <code>Dense</code> layer of the previous multi-step dense model is
 replaced with a one dimensional convolution layer. The arguments to this
@@ -859,8 +859,8 @@ CNN performance against test data: [0.2245914489030838, 0.18907274305820465]</co
 </div>
 <figure><img src="./fig/ep5_fig5.png" alt="Plot of a multi step convolution neural network." class="figure mx-auto d-block"><div class="figcaption">Plot of a multi step convolution neural
 network.</div>
-</figure></section><section id="recurrent-neural-network-lstm"><h2 class="section-heading">Recurrent neural network (LSTM)<a class="anchor" aria-label="anchor" href="#recurrent-neural-network-lstm"></a>
-</h2>
+</figure></section><section><h2 class="section-heading" id="recurrent-neural-network-lstm">Recurrent neural network (LSTM)<a class="anchor" aria-label="anchor" href="#recurrent-neural-network-lstm"></a>
+<a class="anchor" aria-label="anchor" href="#recurrent-neural-network-lstm"></a></h2>
 <hr class="half-width"><p>Recall that the recurrent neural network model maintains an internal
 state based on consecutive inputs. For this reason, the
 <code>lamba</code> function used so far to flatten the model input is
@@ -898,8 +898,8 @@ maintained until the final input timestep.</p>
 LSTM performance against validation data: [0.17599913477897644, 0.17859137058258057]
 LSTM performance against test data: [0.19873034954071045, 0.18935032188892365]</code></pre>
 <figure><img src="./fig/ep5_fig6.png" alt="Plot of a multi step LSTM neural network." class="figure mx-auto d-block"><div class="figcaption">Plot of a multi step LSTM neural network.</div>
-</figure></section><section id="evaluate"><h2 class="section-heading">Evaluate<a class="anchor" aria-label="anchor" href="#evaluate"></a>
-</h2>
+</figure></section><section><h2 class="section-heading" id="evaluate">Evaluate<a class="anchor" aria-label="anchor" href="#evaluate"></a>
+<a class="anchor" aria-label="anchor" href="#evaluate"></a></h2>
 <hr class="half-width"><p>From monitoring the output of the different models for each epoch, we
 can see that in general all of the multi-step models outperform all of
 the single step models. Multiple factors can influence model
@@ -961,9 +961,9 @@ window will forecast all features.</li>
 </ul></div>
 </div>
 </div>
-<!-- 
+<!--
 Place links that you need to refer to multiple times across pages here. Delete
-any links that you are not going to use. 
+any links that you are not going to use.
  -->
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
@@ -988,18 +988,18 @@ any links that you are not going to use.
       		<footer class="row footer mx-md-3"><hr><div class="col-md-6">
         <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
         <p>
-        
+
         <a href="https://github.com/carpentries-incubator/python-classifying-power-consumption/edit/main/episodes/05-multi-step-forecasts.md" class="external-link">Edit on GitHub</a>
-        
+
 	
         | <a href="https://github.com/carpentries-incubator/python-classifying-power-consumption/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
         | <a href="https://github.com/carpentries-incubator/python-classifying-power-consumption/" class="external-link">Source</a></p>
 				<p><a href="https://github.com/carpentries-incubator/python-classifying-power-consumption/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:team@carpentries.org">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
 			</div>
 			<div class="col-md-6">
-        
+
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
-        
+
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
         <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.5" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.3" class="external-link">varnish (1.0.3)</a></p>
 			</div>
@@ -1024,7 +1024,7 @@ any links that you are not going to use.
   "identifier": "https://carpentries-incubator.github.io/python-classifying-power-consumption/05-multi-step-forecasts.html",
   "dateCreated": "2023-09-01",
   "dateModified": "2023-08-31",
-  "datePublished": "2024-07-02"
+  "datePublished": "2024-07-09"
 }
 
   </script><script>
